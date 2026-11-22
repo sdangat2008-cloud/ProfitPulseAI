@@ -1,0 +1,88 @@
+{
+  "segments": [
+    {
+      "id": "seg-loyal",
+      "name": "High-Value Loyal Champions",
+      "userSharePct": 18,
+      "orderSharePct": 42,
+      "revenueSharePct": 51,
+      "aov": 620,
+      "monthlyFrequency": 7.4,
+      "discountDependencyPct": 4.5,
+      "clvEstimate": 34800,
+      "contributionMarginPerOrder": 84,
+      "description": "Affluent professionals purchasing groceries, organic perishables, and specialty goods with minimal coupon usage.",
+      "color": "#1E6B52",
+      "badge": "Highly Profitable",
+      "recommendations": [
+        "Launch 'PulseBlack VIP' subscription for zero-fee scheduled delivery.",
+        "Recommend high-margin artisanal & private-label additions during checkout.",
+        "Priority 8-minute dispatch guarantee to lock retention."
+      ]
+    },
+    {
+      "id": "seg-convenience",
+      "name": "Frequent Convenience Seekers",
+      "userSharePct": 34,
+      "orderSharePct": 33,
+      "revenueSharePct": 28,
+      "aov": 385,
+      "monthlyFrequency": 5.1,
+      "discountDependencyPct": 14.0,
+      "clvEstimate": 16400,
+      "contributionMarginPerOrder": 32,
+      "description": "Young urban households ordering emergency supplies, daily dairy, snacks, and personal care.",
+      "color": "#3B506B",
+      "badge": "Moderately Profitable",
+      "recommendations": [
+        "Incentivize multi-pack basket building to lift AOV from ₹385 to ₹450+.",
+        "Introduce 'Add before rider leaves' impulse tray (+₹65 per basket)."
+      ]
+    },
+    {
+      "id": "seg-discount",
+      "name": "Discount-Sensitive Bargain Hunters",
+      "userSharePct": 32,
+      "orderSharePct": 19,
+      "revenueSharePct": 14,
+      "aov": 265,
+      "monthlyFrequency": 2.8,
+      "discountDependencyPct": 46.5,
+      "clvEstimate": 2100,
+      "contributionMarginPerOrder": -28,
+      "description": "Users who only place orders when given 35%+ voucher codes or flat ₹100 off promotions.",
+      "color": "#4E0000",
+      "badge": "Value Destructive (Negative Margin)",
+      "recommendations": [
+        "Eliminate flat discount codes on carts below ₹499.",
+        "Shift subsidies from instant cash discounts to locked store credits valid in 7 days.",
+        "Add ₹25 surge delivery fee on sub-₹200 single item orders."
+      ]
+    },
+    {
+      "id": "seg-inactive",
+      "name": "Dormant & Churn-Risk Users",
+      "userSharePct": 16,
+      "orderSharePct": 6,
+      "revenueSharePct": 7,
+      "aov": 340,
+      "monthlyFrequency": 0.4,
+      "discountDependencyPct": 28.0,
+      "clvEstimate": 4500,
+      "contributionMarginPerOrder": 6,
+      "description": "Users who have not ordered in > 35 days after an initial trial or onboarding cycle.",
+      "color": "#8C6D62",
+      "badge": "Re-activation Target",
+      "recommendations": [
+        "Automated WhatsApp push for high-repeat staples (Milk/Eggs replenishment).",
+        "Targeted private-label sample gift voucher instead of margin-eroding generic coupons."
+      ]
+    }
+  ],
+  "retentionIndicators": {
+    "day30Retention": 41.2,
+    "day90Retention": 24.8,
+    "averageCustomerTenureMonths": 8.6,
+    "organicVsAcquiredMarginDelta": "+14.6%"
+  }
+}

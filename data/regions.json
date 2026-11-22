@@ -1,0 +1,170 @@
+[
+  {
+    "id": "all",
+    "name": "All Regions (Consolidated)",
+    "currency": "₹",
+    "currencyCode": "INR",
+    "exchangeRateToINR": 1.0,
+    "defaultInputs": {
+      "aov": 435,
+      "dailyOrders": 20530,
+      "deliveryCost": 38.5,
+      "discount": 25.0,
+      "packagingCost": 7.5,
+      "productCostPct": 69.2,
+      "wastagePct": 3.4
+    },
+    "benchmarks": {
+      "avgRentPerSqft": 85,
+      "riderCostPerHour": 120,
+      "targetBreakevenMonths": 10
+    }
+  },
+  {
+    "id": "south-blr",
+    "name": "South India - Bengaluru",
+    "currency": "₹",
+    "currencyCode": "INR",
+    "exchangeRateToINR": 1.0,
+    "defaultInputs": {
+      "aov": 445,
+      "dailyOrders": 6950,
+      "deliveryCost": 37.0,
+      "discount": 24.0,
+      "packagingCost": 7.0,
+      "productCostPct": 69.5,
+      "wastagePct": 3.1
+    },
+    "benchmarks": {
+      "avgRentPerSqft": 75,
+      "riderCostPerHour": 125,
+      "targetBreakevenMonths": 8
+    }
+  },
+  {
+    "id": "north-ncr",
+    "name": "North India - NCR",
+    "currency": "₹",
+    "currencyCode": "INR",
+    "exchangeRateToINR": 1.0,
+    "defaultInputs": {
+      "aov": 460,
+      "dailyOrders": 6840,
+      "deliveryCost": 36.5,
+      "discount": 23.0,
+      "packagingCost": 7.5,
+      "productCostPct": 68.0,
+      "wastagePct": 2.9
+    },
+    "benchmarks": {
+      "avgRentPerSqft": 70,
+      "riderCostPerHour": 115,
+      "targetBreakevenMonths": 7
+    }
+  },
+  {
+    "id": "west-mum",
+    "name": "West India - Mumbai",
+    "currency": "₹",
+    "currencyCode": "INR",
+    "exchangeRateToINR": 1.0,
+    "defaultInputs": {
+      "aov": 455,
+      "dailyOrders": 6740,
+      "deliveryCost": 41.0,
+      "discount": 26.5,
+      "packagingCost": 8.0,
+      "productCostPct": 68.5,
+      "wastagePct": 3.6
+    },
+    "benchmarks": {
+      "avgRentPerSqft": 110,
+      "riderCostPerHour": 135,
+      "targetBreakevenMonths": 11
+    }
+  },
+  {
+    "id": "south-hyd",
+    "name": "South India - Hyderabad",
+    "currency": "₹",
+    "currencyCode": "INR",
+    "exchangeRateToINR": 1.0,
+    "defaultInputs": {
+      "aov": 46.5,
+      "dailyOrders": 2070,
+      "deliveryCost": 37.0,
+      "discount": 22.0,
+      "packagingCost": 7.0,
+      "productCostPct": 65.0,
+      "wastagePct": 3.4
+    },
+    "benchmarks": {
+      "avgRentPerSqft": 65,
+      "riderCostPerHour": 110,
+      "targetBreakevenMonths": 8
+    }
+  },
+  {
+    "id": "west-pun",
+    "name": "West India - Pune",
+    "currency": "₹",
+    "currencyCode": "INR",
+    "exchangeRateToINR": 1.0,
+    "defaultInputs": {
+      "aov": 45.8,
+      "dailyOrders": 1920,
+      "deliveryCost": 40.0,
+      "discount": 22.0,
+      "packagingCost": 7.0,
+      "productCostPct": 65.0,
+      "wastagePct": 4.2
+    },
+    "benchmarks": {
+      "avgRentPerSqft": 60,
+      "riderCostPerHour": 105,
+      "targetBreakevenMonths": 9
+    }
+  },
+  {
+    "id": "sea",
+    "name": "Southeast Asia (Jakarta / Bangkok)",
+    "currency": "$",
+    "currencyCode": "USD",
+    "exchangeRateToINR": 84.5,
+    "defaultInputs": {
+      "aov": 7.8,
+      "dailyOrders": 18500,
+      "deliveryCost": 1.45,
+      "discount": 0.85,
+      "packagingCost": 0.25,
+      "productCostPct": 66.5,
+      "wastagePct": 2.8
+    },
+    "benchmarks": {
+      "avgRentPerSqft": 1.2,
+      "riderCostPerHour": 2.8,
+      "targetBreakevenMonths": 9
+    }
+  },
+  {
+    "id": "eu",
+    "name": "Western Europe (London / Berlin)",
+    "currency": "€",
+    "currencyCode": "EUR",
+    "exchangeRateToINR": 91.2,
+    "defaultInputs": {
+      "aov": 26.5,
+      "dailyOrders": 12000,
+      "deliveryCost": 5.4,
+      "discount": 1.8,
+      "packagingCost": 0.8,
+      "productCostPct": 62.0,
+      "wastagePct": 2.1
+    },
+    "benchmarks": {
+      "avgRentPerSqft": 4.5,
+      "riderCostPerHour": 16.5,
+      "targetBreakevenMonths": 14
+    }
+  }
+]

@@ -1,0 +1,622 @@
+{
+  "_meta": {
+    "mongoUri": "mongodb+srv://Admin1:Test123@cluster0.tzti0i8.mongodb.net/profitpulse?retryWrites=true&w=majority",
+    "maskedUri": "mongodb+srv://Admin1:••••••••@cluster0.tzti0i8.mongodb.net/profitpulse",
+    "cluster": "cluster0.tzti0i8.mongodb.net",
+    "database": "profitpulse",
+    "status": "connected",
+    "mode": "MongoDB Atlas Active",
+    "lastSyncedAt": "2026-11-22T07:37:24+05:30",
+    "createdAt": "2026-11-22T06:33:30+05:30",
+    "activeDataset": "ProfitPulse_AI_Store_Data_Entry(1).xlsx",
+    "storeCount": 9,
+    "reportingPeriod": "October 2026 (2026-10)"
+  },
+  "products": [
+    {
+      "_id": "prod_3c078497b14b",
+      "id": "SKU-MLK-01",
+      "barcode": "8901030383741",
+      "name": "Amul Taaza Homogenised Toned Milk 1L",
+      "category": "Dairy & Milk",
+      "availableQuantity": 425,
+      "minThreshold": 150,
+      "unitPrice": 72.0,
+      "purchaseCost": 61.2,
+      "supplier": "Amul Cooperative Direct",
+      "expiryDays": 3,
+      "lastUpdated": "Just now",
+      "createdAt": "2026-11-22T06:33:30+05:30"
+    },
+    {
+      "_id": "prod_88ed4c1b4f7f",
+      "id": "SKU-BER-02",
+      "barcode": "8901262010052",
+      "name": "Fresh Organic Blueberries 125g",
+      "category": "Fresh Produce",
+      "availableQuantity": 24,
+      "minThreshold": 35,
+      "unitPrice": 240.0,
+      "purchaseCost": 160.0,
+      "supplier": "BerryFresh Imports Ltd",
+      "expiryDays": 2,
+      "lastUpdated": "Today, 09:15 AM",
+      "createdAt": "2026-11-22T06:33:30+05:30"
+    },
+    {
+      "_id": "prod_3b39946382d7",
+      "id": "SKU-AVO-03",
+      "barcode": "8901491101824",
+      "name": "Hass Avocados (Twin Pack)",
+      "category": "Fresh Produce",
+      "availableQuantity": 18,
+      "minThreshold": 25,
+      "unitPrice": 280.0,
+      "purchaseCost": 195.0,
+      "supplier": "NatureFresh Agri Imports",
+      "expiryDays": 2,
+      "lastUpdated": "Today, 09:40 AM",
+      "createdAt": "2026-11-22T06:33:30+05:30"
+    },
+    {
+      "_id": "prod_0f45513ee765",
+      "id": "SKU-SNK-04",
+      "barcode": "8901058852335",
+      "name": "Lay's Gourmet Vintage Cheese 55g",
+      "category": "Snacks & Munchies",
+      "availableQuantity": 580,
+      "minThreshold": 100,
+      "unitPrice": 50.0,
+      "purchaseCost": 39.0,
+      "supplier": "PepsiCo India Holdings",
+      "expiryDays": 90,
+      "lastUpdated": "Today, 10:00 AM",
+      "createdAt": "2026-11-22T06:33:30+05:30"
+    },
+    {
+      "_id": "prod_4d0e6ffe8e47",
+      "id": "SKU-EGG-05",
+      "barcode": "8901112233445",
+      "name": "Farm Fresh Brown Eggs (Pack of 6)",
+      "category": "Meat & Eggs",
+      "availableQuantity": 115,
+      "minThreshold": 40,
+      "unitPrice": 95.0,
+      "purchaseCost": 72.0,
+      "supplier": "Keggfarms Direct Hub",
+      "expiryDays": 12,
+      "lastUpdated": "Today, 07:45 AM",
+      "createdAt": "2026-11-22T06:33:30+05:30"
+    },
+    {
+      "_id": "prod_43000328c3ef",
+      "id": "SKU-BEV-06",
+      "barcode": "8901765432198",
+      "name": "Coca-Cola Zero Sugar 300ml Can",
+      "category": "Beverages",
+      "availableQuantity": 310,
+      "minThreshold": 80,
+      "unitPrice": 40.0,
+      "purchaseCost": 28.5,
+      "supplier": "Hindustan Coca-Cola Beverages",
+      "expiryDays": 120,
+      "lastUpdated": "Today, 10:20 AM",
+      "createdAt": "2026-11-22T06:33:30+05:30"
+    },
+    {
+      "_id": "prod_0db904a616b6",
+      "id": "SKU-PAN-07",
+      "barcode": "8901030554412",
+      "name": "Aashirvaad Shudh Chakki Atta 5kg",
+      "category": "Pantry Essentials",
+      "availableQuantity": 85,
+      "minThreshold": 30,
+      "unitPrice": 315.0,
+      "purchaseCost": 260.0,
+      "supplier": "ITC Limited Distribution",
+      "expiryDays": 180,
+      "lastUpdated": "Yesterday, 06:10 PM",
+      "createdAt": "2026-11-22T06:33:30+05:30"
+    },
+    {
+      "_id": "prod_bece3976f35c",
+      "id": "SKU-YOG-08",
+      "barcode": "8901662981014",
+      "name": "Epigamia Greek Yogurt Strawberry 120g",
+      "category": "Dairy & Milk",
+      "availableQuantity": 42,
+      "minThreshold": 60,
+      "unitPrice": 65.0,
+      "purchaseCost": 48.0,
+      "supplier": "Drums Food International",
+      "expiryDays": 4,
+      "lastUpdated": "Today, 08:00 AM",
+      "createdAt": "2026-11-22T06:33:30+05:30"
+    }
+  ],
+  "inventory_transactions": [
+    {
+      "sku": "SKU-MLK-01",
+      "productName": "Amul Taaza Homogenised Toned Milk 1L",
+      "change": "+5",
+      "resultingStock": 425,
+      "opType": "STOCK_INCREMENT",
+      "reason": "API Test",
+      "_id": "tx_b3dcb8658445",
+      "id": "tx-1122-4368",
+      "timestamp": "06:35:46 AM",
+      "createdAt": "2026-11-22T06:35:46+05:30"
+    },
+    {
+      "_id": "tx_f118439b2697",
+      "id": "tx-1",
+      "timestamp": "08:15:20 AM",
+      "sku": "SKU-MLK-01",
+      "productName": "Amul Taaza Homogenised Toned Milk 1L",
+      "change": "+250",
+      "resultingStock": 420,
+      "opType": "INWARD_RECEIPT",
+      "reason": "Central Hub Transfer PO-9812",
+      "createdAt": "2026-11-22T06:33:30+05:30"
+    },
+    {
+      "_id": "tx_45fd9a0aee99",
+      "id": "tx-2",
+      "timestamp": "09:30:45 AM",
+      "sku": "SKU-AVO-03",
+      "productName": "Hass Avocados (Twin Pack)",
+      "change": "-8",
+      "resultingStock": 18,
+      "opType": "DISPATCH_FULFILLMENT",
+      "reason": "Customer Quick-Commerce Orders",
+      "createdAt": "2026-11-22T06:33:30+05:30"
+    },
+    {
+      "_id": "tx_c7b56f9047d2",
+      "id": "tx-3",
+      "timestamp": "09:55:10 AM",
+      "sku": "SKU-BER-02",
+      "productName": "Fresh Organic Blueberries 125g",
+      "change": "-5",
+      "resultingStock": 24,
+      "opType": "BARCODE_SCAN",
+      "reason": "Rider Bagging & Order Dispatch",
+      "createdAt": "2026-11-22T06:33:30+05:30"
+    }
+  ],
+  "notifications": [
+    {
+      "_id": "notif_1795313244",
+      "id": "notif-1795313244",
+      "title": "Excel Dataset Imported (October 2026)",
+      "message": "Successfully imported 9 dark-store records from ProfitPulse_AI_Store_Data_Entry(1).xlsx covering October 2026.",
+      "severity": "success",
+      "category": "business",
+      "timestamp": "2026-11-22T07:37:24+05:30",
+      "read": false
+    },
+    {
+      "title": "Company Dataset Imported (2 Stores)",
+      "message": "Successfully imported 'sample_dark_stores.xlsx' with 2 dark-store records into MongoDB Atlas store.",
+      "severity": "success",
+      "category": "business",
+      "_id": "notif_f9196c76e5d2",
+      "id": "notif-1795312630-627",
+      "timestamp": "2026-11-22T07:27:10+05:30",
+      "read": false
+    },
+    {
+      "title": "✅ Stock Inward Verified: Amul Taaza Homogenised Toned Milk 1L",
+      "message": "Successfully inwarded +5 units. Available inventory: 425 units.",
+      "severity": "success",
+      "category": "inventory",
+      "skuId": "SKU-MLK-01",
+      "_id": "notif_a6f1a23e715f",
+      "id": "notif-1795309546-975",
+      "timestamp": "2026-11-22T06:35:46+05:30",
+      "read": false
+    },
+    {
+      "_id": "notif_f51b2da4493d",
+      "id": "notif-1",
+      "title": "Low Stock Alert: Hass Avocados (Twin Pack)",
+      "message": "Current stock is 18 units, below minimum threshold of 25. Morning replenishment recommended.",
+      "severity": "critical",
+      "category": "inventory",
+      "timestamp": "2026-11-22T06:23:30+05:30",
+      "read": false,
+      "skuId": "SKU-AVO-03"
+    },
+    {
+      "_id": "notif_a0b54cff23e6",
+      "id": "notif-2",
+      "title": "Perishable Expiry Warning: Blueberries",
+      "message": "24 units of Fresh Organic Blueberries have 2 days left. Flash discount or bundle recommended.",
+      "severity": "warning",
+      "category": "inventory",
+      "timestamp": "2026-11-22T06:01:30+05:30",
+      "read": false,
+      "skuId": "SKU-BER-02"
+    },
+    {
+      "_id": "notif_af357a79043b",
+      "id": "notif-3",
+      "title": "High Delivery Cost Inefficiency Detected",
+      "message": "East Delhi dark-store delivery cost averaged ₹42.80/order today (+11% above ₹38.50 target).",
+      "severity": "warning",
+      "category": "business",
+      "timestamp": "2026-11-22T05:28:30+05:30",
+      "read": false
+    },
+    {
+      "_id": "notif_fa1d08bf878e",
+      "id": "notif-4",
+      "title": "Inventory Inbound Verified",
+      "message": "Amul Taaza Milk received 250 units from central distribution. Inward scan verified.",
+      "severity": "success",
+      "category": "inventory",
+      "timestamp": "2026-11-22T04:13:30+05:30",
+      "read": true,
+      "skuId": "SKU-MLK-01"
+    }
+  ],
+  "business_data": {
+    "_id": "biz_3930be531026",
+    "revenue": 31850000.0,
+    "orders": 68400,
+    "deliveryCost": 2480000.0,
+    "rent": 245000.0,
+    "staffing": 195000.0,
+    "wastage": 82000.0,
+    "privateLabel": 580000.0,
+    "isDemo": true,
+    "calculatedCM": 8232500.0,
+    "calculatedCMPO": 120.36,
+    "calculatedCMPct": 25.85,
+    "updatedAt": "2026-11-22T06:33:30+05:30"
+  },
+  "stores": [
+    {
+      "id": "DS-BLR-01",
+      "name": "Indiranagar Hub 104",
+      "region": "South India - Bengaluru",
+      "location": "100ft Road, Indiranagar, Bengaluru",
+      "period": "2026-10",
+      "sqft": 3200,
+      "rent": 450000,
+      "staffing": 620000,
+      "utilities": 45000,
+      "ordersPerDay": 2680,
+      "ordersTotal": 80400,
+      "aov": 47,
+      "monthlyRevenue": 3739000,
+      "productCostPct": 65.0,
+      "deliveryCostPerOrder": 34.0,
+      "discountPerOrder": 22.0,
+      "wastageCost": 115000,
+      "privateLabelSales": 420000,
+      "contributionMargin": -2546950,
+      "cmPct": -68.1,
+      "cmpo": -31.68,
+      "status": "Critical Loss",
+      "lossMaking": true,
+      "utilization": 75,
+      "aiRecommendations": [
+        {
+          "title": "Route Batching & Rider Pooling",
+          "description": "Implement 2-order dynamic dispatch batching to reduce delivery cost per order from ₹34.0 to ₹25.8.",
+          "impact": "+₹656064 / mo"
+        },
+        {
+          "title": "Private-Label Assortment Expansion",
+          "description": "Scale private label SKU share from ₹420k to ₹735k to capture 15% higher gross margins.",
+          "impact": "+₹46200 / mo"
+        }
+      ]
+    },
+    {
+      "id": "DS-BLR-02",
+      "name": "Koramangala 4th Block",
+      "region": "South India - Bengaluru",
+      "location": "80ft Road, 4th Block, Koramangala, Bengaluru",
+      "period": "2026-10",
+      "sqft": 3200,
+      "rent": 507000,
+      "staffing": 685000,
+      "utilities": 50700,
+      "ordersPerDay": 3120,
+      "ordersTotal": 93600,
+      "aov": 43,
+      "monthlyRevenue": 4025000,
+      "productCostPct": 65.0,
+      "deliveryCostPerOrder": 36.0,
+      "discountPerOrder": 22.0,
+      "wastageCost": 128000,
+      "privateLabelSales": 510000,
+      "contributionMargin": -3204350,
+      "cmPct": -79.6,
+      "cmpo": -34.23,
+      "status": "Critical Loss",
+      "lossMaking": true,
+      "utilization": 75,
+      "aiRecommendations": [
+        {
+          "title": "Route Batching & Rider Pooling",
+          "description": "Implement 2-order dynamic dispatch batching to reduce delivery cost per order from ₹36.0 to ₹27.4.",
+          "impact": "+₹808704 / mo"
+        },
+        {
+          "title": "Private-Label Assortment Expansion",
+          "description": "Scale private label SKU share from ₹510k to ₹893k to capture 15% higher gross margins.",
+          "impact": "+₹56100 / mo"
+        }
+      ]
+    },
+    {
+      "id": "DS-BLR-03",
+      "name": "Whitefield IT Corridor",
+      "region": "South India - Bengaluru",
+      "location": "ITPL Main Road, Whitefield, Bengaluru",
+      "period": "2026-10",
+      "sqft": 3200,
+      "rent": 408000,
+      "staffing": 590000,
+      "utilities": 40800,
+      "ordersPerDay": 1150,
+      "ordersTotal": 34500,
+      "aov": 38,
+      "monthlyRevenue": 1311000,
+      "productCostPct": 65.0,
+      "deliveryCostPerOrder": 49.0,
+      "discountPerOrder": 22.0,
+      "wastageCost": 142000,
+      "privateLabelSales": 95000,
+      "contributionMargin": -2357400,
+      "cmPct": -179.8,
+      "cmpo": -68.33,
+      "status": "Critical Loss",
+      "lossMaking": true,
+      "utilization": 35,
+      "aiRecommendations": [
+        {
+          "title": "Route Batching & Rider Pooling",
+          "description": "Implement 2-order dynamic dispatch batching to reduce delivery cost per order from ₹49.0 to ₹37.2.",
+          "impact": "+₹405720 / mo"
+        },
+        {
+          "title": "Private-Label Assortment Expansion",
+          "description": "Scale private label SKU share from ₹95k to ₹166k to capture 15% higher gross margins.",
+          "impact": "+₹10450 / mo"
+        }
+      ]
+    },
+    {
+      "id": "DS-NCR-01",
+      "name": "Gurugram Cyber City Hub",
+      "region": "North India - NCR",
+      "location": "DLF Phase 2, Cyber City, Gurugram",
+      "period": "2026-10",
+      "sqft": 3200,
+      "rent": 520000,
+      "staffing": 640000,
+      "utilities": 52000,
+      "ordersPerDay": 2450,
+      "ordersTotal": 73500,
+      "aov": 45,
+      "monthlyRevenue": 3280000,
+      "productCostPct": 65.0,
+      "deliveryCostPerOrder": 38.0,
+      "discountPerOrder": 22.0,
+      "wastageCost": 105000,
+      "privateLabelSales": 360000,
+      "contributionMargin": -2856000,
+      "cmPct": -87.1,
+      "cmpo": -38.86,
+      "status": "Critical Loss",
+      "lossMaking": true,
+      "utilization": 70,
+      "aiRecommendations": [
+        {
+          "title": "Route Batching & Rider Pooling",
+          "description": "Implement 2-order dynamic dispatch batching to reduce delivery cost per order from ₹38.0 to ₹28.9.",
+          "impact": "+₹670320 / mo"
+        },
+        {
+          "title": "Private-Label Assortment Expansion",
+          "description": "Scale private label SKU share from ₹360k to ₹630k to capture 15% higher gross margins.",
+          "impact": "+₹39600 / mo"
+        }
+      ]
+    },
+    {
+      "id": "DS-NCR-02",
+      "name": "Noida Sector  on",
+      "region": "North India - NCR",
+      "location": "Sector 62 Institutional Area, Noida",
+      "period": "2026-10",
+      "sqft": 3200,
+      "rent": 475000,
+      "staffing": 610000,
+      "utilities": 47500,
+      "ordersPerDay": 2180,
+      "ordersTotal": 65400,
+      "aov": 45,
+      "monthlyRevenue": 2960000,
+      "productCostPct": 65.0,
+      "deliveryCostPerOrder": 41.0,
+      "discountPerOrder": 22.0,
+      "wastageCost": 132000,
+      "privateLabelSales": 295000,
+      "contributionMargin": -2818150,
+      "cmPct": -95.2,
+      "cmpo": -43.09,
+      "status": "Critical Loss",
+      "lossMaking": true,
+      "utilization": 62,
+      "aiRecommendations": [
+        {
+          "title": "Route Batching & Rider Pooling",
+          "description": "Implement 2-order dynamic dispatch batching to reduce delivery cost per order from ₹41.0 to ₹31.2.",
+          "impact": "+₹643536 / mo"
+        },
+        {
+          "title": "Private-Label Assortment Expansion",
+          "description": "Scale private label SKU share from ₹295k to ₹516k to capture 15% higher gross margins.",
+          "impact": "+₹32450 / mo"
+        }
+      ]
+    },
+    {
+      "id": "DS-MUM-01",
+      "name": "Powai Central",
+      "region": "West India - Mumbai",
+      "location": "Central Avenue, Hiranandani Gardens, Powai, Mumbai",
+      "period": "2026-10",
+      "sqft": 3200,
+      "rent": 610000,
+      "staffing": 720000,
+      "utilities": 61000,
+      "ordersPerDay": 2590,
+      "ordersTotal": 77700,
+      "aov": 46,
+      "monthlyRevenue": 3540000,
+      "productCostPct": 65.0,
+      "deliveryCostPerOrder": 39.0,
+      "discountPerOrder": 22.0,
+      "wastageCost": 118000,
+      "privateLabelSales": 390000,
+      "contributionMargin": -3180800,
+      "cmPct": -89.9,
+      "cmpo": -40.94,
+      "status": "Critical Loss",
+      "lossMaking": true,
+      "utilization": 74,
+      "aiRecommendations": [
+        {
+          "title": "Route Batching & Rider Pooling",
+          "description": "Implement 2-order dynamic dispatch batching to reduce delivery cost per order from ₹39.0 to ₹29.6.",
+          "impact": "+₹727272 / mo"
+        },
+        {
+          "title": "Private-Label Assortment Expansion",
+          "description": "Scale private label SKU share from ₹390k to ₹683k to capture 15% higher gross margins.",
+          "impact": "+₹42900 / mo"
+        }
+      ]
+    },
+    {
+      "id": "DS-MUM-02",
+      "name": "Andheri East Hub",
+      "region": "West India - Mumbai",
+      "location": "MIDC Central Road, Andheri East, Mumbai",
+      "period": "2026-10",
+      "sqft": 3200,
+      "rent": 565000,
+      "staffing": 675000,
+      "utilities": 56500,
+      "ordersPerDay": 2310,
+      "ordersTotal": 69300,
+      "aov": 46,
+      "monthlyRevenue": 3175000,
+      "productCostPct": 65.0,
+      "deliveryCostPerOrder": 42.0,
+      "discountPerOrder": 22.0,
+      "wastageCost": 126000,
+      "privateLabelSales": 325000,
+      "contributionMargin": -3116600,
+      "cmPct": -98.2,
+      "cmpo": -44.97,
+      "status": "Critical Loss",
+      "lossMaking": true,
+      "utilization": 66,
+      "aiRecommendations": [
+        {
+          "title": "Route Batching & Rider Pooling",
+          "description": "Implement 2-order dynamic dispatch batching to reduce delivery cost per order from ₹42.0 to ₹31.9.",
+          "impact": "+₹698544 / mo"
+        },
+        {
+          "title": "Private-Label Assortment Expansion",
+          "description": "Scale private label SKU share from ₹325k to ₹569k to capture 15% higher gross margins.",
+          "impact": "+₹35750 / mo"
+        }
+      ]
+    },
+    {
+      "id": "DS-HYD-01",
+      "name": "Hitech City Hub",
+      "region": "South India - Hyderabad",
+      "location": "Madhapur Main Road, Hitech City, Hyderabad",
+      "period": "2026-10",
+      "sqft": 3200,
+      "rent": 430000,
+      "staffing": 575000,
+      "utilities": 43000,
+      "ordersPerDay": 2070,
+      "ordersTotal": 62100,
+      "aov": 47,
+      "monthlyRevenue": 2890000,
+      "productCostPct": 65.0,
+      "deliveryCostPerOrder": 37.0,
+      "discountPerOrder": 22.0,
+      "wastageCost": 98000,
+      "privateLabelSales": 280000,
+      "contributionMargin": -2347200,
+      "cmPct": -81.2,
+      "cmpo": -37.8,
+      "status": "Critical Loss",
+      "lossMaking": true,
+      "utilization": 59,
+      "aiRecommendations": [
+        {
+          "title": "Route Batching & Rider Pooling",
+          "description": "Implement 2-order dynamic dispatch batching to reduce delivery cost per order from ₹37.0 to ₹28.1.",
+          "impact": "+₹551448 / mo"
+        },
+        {
+          "title": "Private-Label Assortment Expansion",
+          "description": "Scale private label SKU share from ₹280k to ₹490k to capture 15% higher gross margins.",
+          "impact": "+₹30800 / mo"
+        }
+      ]
+    },
+    {
+      "id": "DS-PUN-01",
+      "name": "Baner High Street",
+      "region": "West India - Pune",
+      "location": "Baner High Street, Baner, Pune",
+      "period": "2026-10",
+      "sqft": 3200,
+      "rent": 395000,
+      "staffing": 540000,
+      "utilities": 39500,
+      "ordersPerDay": 1920,
+      "ordersTotal": 57600,
+      "aov": 46,
+      "monthlyRevenue": 2640000,
+      "productCostPct": 65.0,
+      "deliveryCostPerOrder": 40.0,
+      "discountPerOrder": 22.0,
+      "wastageCost": 112000,
+      "privateLabelSales": 245000,
+      "contributionMargin": -2390250,
+      "cmPct": -90.5,
+      "cmpo": -41.5,
+      "status": "Critical Loss",
+      "lossMaking": true,
+      "utilization": 55,
+      "aiRecommendations": [
+        {
+          "title": "Route Batching & Rider Pooling",
+          "description": "Implement 2-order dynamic dispatch batching to reduce delivery cost per order from ₹40.0 to ₹30.4.",
+          "impact": "+₹552960 / mo"
+        },
+        {
+          "title": "Private-Label Assortment Expansion",
+          "description": "Scale private label SKU share from ₹245k to ₹429k to capture 15% higher gross margins.",
+          "impact": "+₹26950 / mo"
+        }
+      ]
+    }
+  ]
+}

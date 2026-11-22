@@ -1,0 +1,10 @@
+Store_ID,Dark_Store_Name,Region,Reporting_Period,Monthly_Revenue_INR,Orders_Per_Day,Delivery_Cost_Per_Order_INR,Dark_Store_Rent_Monthly_INR,Staffing_Expenses_Monthly_INR,Inventory_Wastage_Monthly_INR,Private_Label_Sales_Monthly_INR
+DS-BLR-01,Indiranagar 100ft Hub,South - Bengaluru,Nov 2026,6150000,3733,32,420000,320000,98000,1180000
+DS-BLR-02,Koramangala 4th Block,South - Bengaluru,Nov 2026,5480000,3400,33,390000,290000,112000,940000
+DS-BLR-03,Whitefield Hope Farm,South - Bengaluru,Nov 2026,3250000,2133,49,290000,230000,165000,340000
+DS-DEL-01,Gurgaon CyberCity Hub,NCR - Delhi & Gurgaon,Nov 2026,5240000,3266,31.8,380000,280000,115000,960000
+DS-DEL-02,South Delhi Hauz Khas,NCR - Delhi & Gurgaon,Nov 2026,4420000,2750,35,310000,240000,128000,750000
+DS-DEL-03,Noida Sector 62 Pod,NCR - Delhi & Gurgaon,Nov 2026,3180000,2266,41,260000,210000,142000,390000
+DS-BOM-01,Bandra West Hill Road,West - Mumbai MMR,Nov 2026,6850000,3933,32,550000,340000,105000,1420000
+DS-BOM-02,Andheri West Lokhandwala,West - Mumbai MMR,Nov 2026,4950000,3133,35,440000,280000,135000,780000
+DS-BOM-03,Powai Hiranandani,West - Mumbai MMR,Nov 2026,3820000,2366,38,360000,240000,118000,560000

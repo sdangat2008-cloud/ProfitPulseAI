@@ -1,0 +1,9 @@
+{
+  "name": "profitpulse-ai",
+  "version": "1.0.0",
+  "description": "ProfitPulse AI – Quick-Commerce Profitability Intelligence Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

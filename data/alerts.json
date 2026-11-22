@@ -1,0 +1,65 @@
+[
+  {
+    "id": "ALT-001",
+    "type": "CRITICAL_LOSS",
+    "severity": "high",
+    "title": "3 Dark Stores Operating at Severe Contribution Deficit",
+    "store": "Whitefield, Noida Sec 62, Thane West",
+    "metric": "Avg CM: -9.8%",
+    "financialImpact": "Monthly Loss: -₹3,99,500",
+    "reason": "Excessive delivery radius (> 4.5 km) coupled with aggressive introductory discounts (₹35+/order) on low AOV baskets (< ₹360).",
+    "recommendation": "Restrict delivery radius to 2.8 km and introduce a ₹299 minimum order floor.",
+    "actionTarget": "simulator",
+    "preset": {
+      "aov": 440,
+      "deliveryCost": 35,
+      "discount": 18
+    }
+  },
+  {
+    "id": "ALT-002",
+    "type": "DELIVERY_INEFFICIENCY",
+    "severity": "high",
+    "title": "Unbatched Single-Drop Delivery Ratio at 74% in Peak Hours",
+    "store": "All South Bengaluru Stores",
+    "metric": "Delivery Cost: ₹39.40/order",
+    "financialImpact": "Potential Savings: +₹4,85,000/month",
+    "reason": "Strict FIFO dispatch algorithm dispatches individual riders for apartments located within 600m of each other.",
+    "recommendation": "Activate Smart Proximity Batching (max 2 orders, 1.2km radius, +3 min tolerance) to boost orders/rider to 3.4/hr.",
+    "actionTarget": "batching",
+    "preset": {
+      "deliveryCost": 26
+    }
+  },
+  {
+    "id": "ALT-003",
+    "type": "PERISHABLE_SHRINKAGE",
+    "severity": "medium",
+    "title": "Fresh Berries & Exotics Wastage Spiking to 8.4%",
+    "store": "Koramangala, Bandra West, Indiranagar",
+    "metric": "Wastage Cost: ₹1,42,000/week",
+    "financialImpact": "Preventable Loss: ₹5,68,000/month",
+    "reason": "Static purchase orders exceeding weekend sell-through curves by 32%.",
+    "recommendation": "Implement dynamic demand-coupled inventory replenishment and automated 24h flash clearance.",
+    "actionTarget": "inventory",
+    "preset": {
+      "wastagePct": 2.2
+    }
+  },
+  {
+    "id": "ALT-004",
+    "type": "DISCOUNT_EROSION",
+    "severity": "medium",
+    "title": "Discount Abuse on Sub-₹250 Baskets Eroding Margins",
+    "store": "Pan-India",
+    "metric": "Discount Share: 18.2% of GMV",
+    "financialImpact": "Recoverable Contribution: +₹7,20,000/month",
+    "reason": "Users exploiting flat ₹75 discount coupons without minimum cart thresholds.",
+    "recommendation": "Cap voucher discounts to 10% maximum and gate free delivery behind a ₹249 basket minimum.",
+    "actionTarget": "simulator",
+    "preset": {
+      "discount": 15,
+      "aov": 450
+    }
+  }
+]

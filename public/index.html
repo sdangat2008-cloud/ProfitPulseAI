@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProfitPulse AI – Quick-Commerce Profitability Intelligence Platform</title>
+  <!-- Google Fonts: Plus Jakarta Sans for Enterprise SaaS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Lucide Icons UMD & Offline Resilient Fallback -->
+  <script src="vendor/lucide.min.js"></script>
+  <script>
+    if (typeof lucide === 'undefined') {
+      document.write('<script src="https://unpkg.com/lucide@latest"><\/script>');
+    }
+  </script>
+  <!-- SheetJS (xlsx) for Excel (.xlsx / .xls) Ingestion & Offline Fallback -->
+  <script src="vendor/xlsx.full.min.js"></script>
+  <script>
+    if (typeof XLSX === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"><\/script>');
+    }
+  </script>
+  <!-- ZXing Browser Barcode Scanning Library -->
+  <script src="https://unpkg.com/@zxing/library@latest/umd/index.min.js"></script>
+</head>
+
+<body>
+  <div class="app-layout">
+    <!-- ==============================================
+         1. FIXED DARK NAVY / CHARCOAL SIDEBAR
+         ============================================== -->
+    <aside class="app-sidebar" id="appSidebar">
+      <!-- Sidebar Brand Header -->
+      <div class="sidebar-brand" onclick="switchTab('tab-dashboard')" role="button" tabindex="0"
+        title="ProfitPulse AI – Return to Executive Dashboard">
+        <div class="brand-logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">PROFITPULSE AI</span>
+          <span class="brand-sub">Profitability Intelligence</span>
+        </div>
+      </div>
+
+      <!-- Section 1: Main Intelligence Navigation (5 Primary Options + Simulator) -->
+      <div class="sidebar-section-label" style="display: flex; align-items: center; gap: 6px;">
+        <i data-lucide="compass" class="lucide-icon sm"></i>
+        <span>MAIN INTELLIGENCE</span>
+      </div>
+      <nav class="sidebar-nav">
+        <!-- 1. Dashboard -->
+        <a class="nav-item active" data-tab="tab-dashboard" title="Executive Dashboard">
+          <i data-lucide="layout-dashboard" class="lucide-icon"></i>
+          <span>Dashboard</span>
+        </a>
+        <!-- 2. StoreSense AI -->
+        <a class="nav-item" data-tab="tab-stores" title="StoreSense AI – Store Intelligence">
+          <i data-lucide="store" class="lucide-icon"></i>
+          <span>StoreSense AI</span>
+        </a>
+        <!-- 3. StockSmart AI -->
+        <a class="nav-item" data-tab="tab-inventory" title="StockSmart AI – Inventory Intelligence & Scanner">
+          <i data-lucide="package" class="lucide-icon"></i>
+          <span>StockSmart AI</span>
+        </a>
+        <!-- 4. MarginMax AI -->
+        <a class="nav-item" data-tab="tab-customers" title="MarginMax AI – Customer Intelligence">
+          <i data-lucide="users" class="lucide-icon"></i>
+          <span>MarginMax AI</span>
+        </a>
+        <!-- 5. RouteFlow AI -->
+        <a class="nav-item" data-tab="tab-delivery" title="RouteFlow AI – Delivery Intelligence">
+          <i data-lucide="bike" class="lucide-icon"></i>
+          <span>RouteFlow AI</span>
+        </a>
+        <!-- 6. Profitability Simulator -->
+        <a class="nav-item" data-tab="tab-simulator" title="Profitability Simulator">
+          <i data-lucide="gauge" class="lucide-icon"></i>
+          <span>Profitability Simulator</span>
+        </a>
+      </nav>
+
+      <!-- Section 2: Secondary Strategic & Data Modules -->
+      <div class="sidebar-section-label" style="display: flex; align-items: center; gap: 6px;">
+        <i data-lucide="layers" class="lucide-icon sm"></i>
+        <span>DATA & STRATEGY</span>
+      </div>
+      <nav class="sidebar-nav secondary-nav">
+        <!-- North Star Matrix -->
+        <a class="nav-item" data-tab="tab-northstar" title="North Star Matrix – CMPO Command Center">
+          <i data-lucide="target" class="lucide-icon"></i>
+          <span>North Star Matrix</span>
+        </a>
+        <!-- Company Data Management -->
+        <a class="nav-item" data-tab="tab-data-mgmt" title="Dynamic Business Data Input">
+          <i data-lucide="database" class="lucide-icon"></i>
+          <span>Company Data Input</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Footer (Settings & Real-time Status) -->
+      <div class="sidebar-footer">
+        <nav class="sidebar-nav footer-nav">
+          <!-- Settings -->
+          <a class="nav-item" data-tab="tab-settings" title="Settings – Regional Assumptions">
+            <i data-lucide="sliders" class="lucide-icon"></i>
+            <span>Settings</span>
+          </a>
+        </nav>
+        <div class="sidebar-status-box">
+          <div class="status-indicator-dot"></div>
+          <div class="status-text-wrap">
+            <span class="status-primary" id="sidebarDatasetStatus">Benchmark Active</span>
+            <span class="status-secondary" id="sidebarStoreCount">9 Dark Stores Loaded</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Overlay for mobile drawer -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ==============================================
+         MODULE 2: FUNCTIONAL NOTIFICATION CENTER DRAWER
+         ============================================== -->
+    <aside class="notification-drawer" id="notificationDrawer" aria-label="Notification Center">
+      <div class="notif-drawer-header">
+        <div class="notif-header-title">
+          <div class="notif-icon-circle">
+            <i data-lucide="bell" class="lucide-icon"></i>
+          </div>
+          <div>
+            <h3>Notification Center</h3>
+            <span class="notif-subtext">Dynamic business and inventory alerts</span>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="badge badge-navy" id="notifUnreadBadge">0 Unread</span>
+          <button class="notif-close-btn" id="closeNotifDrawerBtn" aria-label="Close Notifications">×</button>
+        </div>
+      </div>
+
+      <div class="notif-drawer-toolbar">
+        <div class="notif-filter-chips">
+          <button class="notif-chip active" data-filter="all">All</button>
+          <button class="notif-chip" data-filter="unread">Unread</button>
+          <button class="notif-chip" data-filter="critical">Critical</button>
+          <button class="notif-chip" data-filter="inventory">Inventory</button>
+        </div>
+        <div class="notif-toolbar-actions">
+          <button class="btn-text-sm" id="btnMarkAllNotifsRead">Mark Read</button>
+          <button class="btn-text-sm text-danger" id="btnClearAllNotifs">Clear</button>
+        </div>
+      </div>
+
+      <div class="notif-list-container" id="notificationList">
+        <!-- Populated dynamically based on actual business & inventory data -->
+      </div>
+    </aside>
+    <div class="notif-backdrop" id="notifBackdrop"></div>
+
+    <!-- ==============================================
+         2. MAIN CONTENT WRAPPER
+         ============================================== -->
+    <div class="app-main">
+      <!-- TOP GLOBAL APP HEADER BAR -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button class="topbar-mobile-btn" id="sidebarToggleBtn" aria-label="Toggle Navigation Sidebar">
+            <i data-lucide="menu" class="lucide-icon"></i>
+          </button>
+          <div class="dynamic-heading-block">
+            <h1 class="dynamic-page-title" id="currentScreenTitle">Dashboard</h1>
+            <p class="dynamic-page-subtitle" id="currentScreenSubtitle">Executive overview of network-wide
+              quick-commerce unit economics and store profitability</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Date Filter (Section 3 Requirement) -->
+          <div class="topbar-control">
+            <span class="control-prefix"><i data-lucide="calendar" class="lucide-icon sm"></i></span>
+            <select id="dateFilter" class="topbar-select" title="Date Range Window">
+              <option value="oct-2026" selected>October 2026</option>
+              <option value="30d">Last 30 Days</option>
+              <option value="7d">Last 7 Days</option>
+              <option value="q3">Q3 2026</option>
+              <option value="ytd">Year-to-Date</option>
+            </select>
+          </div>
+
+          <!-- Region Selector (Section 3 Requirement) -->
+          <div class="topbar-control">
+            <span class="control-prefix"><i data-lucide="map-pin" class="lucide-icon sm"></i></span>
+            <select id="regionSelector" class="topbar-select" title="Filter by Operating Region">
+              <option value="all">All Regions (Consolidated)</option>
+            </select>
+          </div>
+
+          <!-- Dark Store Selector -->
+          <div class="topbar-control" title="Filter metrics by individual dark store">
+            <span class="control-prefix"><i data-lucide="store" class="lucide-icon sm"></i></span>
+            <select id="storeSelector" class="topbar-select">
+              <option value="all">All Dark Stores</option>
+            </select>
+          </div>
+
+          <!-- Notification Bell Button (MODULE 2) -->
+          <button class="topbar-bell-btn" id="notificationBellBtn" title="View Notification Center"
+            aria-label="Notifications">
+            <i data-lucide="bell" class="lucide-icon"></i>
+            <span class="notification-badge" id="notificationBadge">0</span>
+          </button>
+
+          <!-- Export CSV Button -->
+          <a href="/api/export" class="btn topbar-btn-outline" id="btnExportReport" download
+            title="Export company profitability report as CSV">
+            <i data-lucide="download" class="lucide-icon sm"></i>
+            <span>Export CSV</span>
+          </a>
+
+          <!-- AI Decision Flow Button -->
+          <button class="btn topbar-btn-primary" id="btnWorkflowGuide"
+            title="Trigger automated guided 4-step turnaround">
+            <i data-lucide="sparkles" class="lucide-icon sm"></i>
+            <span>AI Turnaround</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Decision Flow Ribbon -->
+      <div class="workflow-ribbon" id="workflowRibbon">
+        <div class="wf-label">
+          <i data-lucide="sparkles" class="lucide-icon sm"></i>
+          <span>Decision Flow:</span>
+        </div>
+        <div class="workflow-steps">
+          <div class="wf-step active" id="wf1" onclick="switchTab('tab-dashboard')"
+            title="Dashboard – Identify Inefficiency">
+            <i data-lucide="layout-dashboard" class="lucide-icon sm"></i>
+            <span>1. Dashboard</span>
+          </div>
+          <span class="wf-arrow">→</span>
+          <div class="wf-step" id="wf2" onclick="switchTab('tab-stores')" title="StoreSense AI – Dark-Store Analysis">
+            <i data-lucide="store" class="lucide-icon sm"></i>
+            <span>2. StoreSense AI</span>
+          </div>
+          <span class="wf-arrow">→</span>
+          <div class="wf-step" id="wf3" onclick="switchTab('tab-delivery')"
+            title="RouteFlow AI – Batching & Delivery Dispatch">
+            <i data-lucide="bike" class="lucide-icon sm"></i>
+            <span>3. RouteFlow AI</span>
+          </div>
+          <span class="wf-arrow">→</span>
+          <div class="wf-step" id="wf4" onclick="switchTab('tab-simulator')"
+            title="Profitability Simulator – 12-Month Breakeven">
+            <i data-lucide="gauge" class="lucide-icon sm"></i>
+            <span>4. Breakeven Simulator</span>
+          </div>
+        </div>
+        <div class="wf-right">
+          <span class="dataset-status-pill">
+            <span class="status-dot-green"></span>
+            <span id="ribbonDatasetStatus">Benchmark Active</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- MAIN SCROLLABLE VIEW CONTAINER -->
+      <main class="content-scrollable">
+
+        <!-- ==============================================
+             PAGE 1: DASHBOARD (EXECUTIVE OVERVIEW)
+             ============================================== -->
+        <section id="tab-dashboard" class="screen-view active">
+          <!-- 5 Core Executive KPI Cards (Section 3 Requirement) -->
+          <div class="kpi-grid-5col">
+            <!-- 1. Total Revenue -->
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">
+                  <i data-lucide="circle-dollar-sign" class="lucide-icon sm inline-kpi-icon"></i>
+                  <span>TOTAL REVENUE</span>
+                </span>
+                <span class="kpi-icon icon-blue">
+                  <i data-lucide="circle-dollar-sign" class="lucide-icon"></i>
+                </span>
+              </div>
+              <div class="kpi-value" id="kpiRevenue">₹3.02 Cr</div>
+              <div class="kpi-meta">
+                <span class="trend-badge up-good">↑ 14.2% MoM</span>
+                <span class="meta-sub">vs previous period</span>
+              </div>
+            </div>
+
+            <!-- 2. Total Orders -->
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">
+                  <i data-lucide="shopping-bag" class="lucide-icon sm inline-kpi-icon"></i>
+                  <span>TOTAL ORDERS</span>
+                </span>
+                <span class="kpi-icon icon-indigo">
+                  <i data-lucide="shopping-bag" class="lucide-icon"></i>
+                </span>
+              </div>
+              <div class="kpi-value" id="kpiOrders">615,900</div>
+              <div class="kpi-meta">
+                <span class="trend-badge up-good">↑ 8.6%</span>
+                <span class="meta-sub"><strong id="kpiDailyOrders">20,530</strong> / day</span>
+              </div>
+            </div>
+
+            <!-- 3. Average Order Value -->
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">
+                  <i data-lucide="receipt" class="lucide-icon sm inline-kpi-icon"></i>
+                  <span>AVERAGE ORDER VALUE</span>
+                </span>
+                <span class="kpi-icon icon-teal">
+                  <i data-lucide="receipt" class="lucide-icon"></i>
+                </span>
+              </div>
+              <div class="kpi-value" id="kpiAOV">₹445</div>
+              <div class="kpi-meta">
+                <span class="trend-badge up-good">↑ ₹24 lift</span>
+                <span class="meta-sub">basket expansion</span>
+              </div>
+            </div>
+
+            <!-- 4. Contribution Margin -->
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">
+                  <i data-lucide="trending-up" class="lucide-icon sm inline-kpi-icon"></i>
+                  <span>CONTRIBUTION MARGIN</span>
+                </span>
+                <span class="kpi-icon icon-green">
+                  <i data-lucide="trending-up" class="lucide-icon"></i>
+                </span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value" id="kpiCMVal">₹27.8L</span>
+                <span class="trend-badge up-good" id="kpiCMPct">+9.2%</span>
+              </div>
+              <div class="kpi-meta">
+                <span class="trend-badge" style="background:#F0FDF4; color:#15803D;">CMPO: <strong
+                    id="kpiCMPOVal">₹41.90</strong> / order</span>
+              </div>
+            </div>
+
+            <!-- 5. Delivery Cost per Order -->
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">
+                  <i data-lucide="bike" class="lucide-icon sm inline-kpi-icon"></i>
+                  <span>DELIVERY COST/ORDER</span>
+                </span>
+                <span class="kpi-icon icon-amber">
+                  <i data-lucide="bike" class="lucide-icon"></i>
+                </span>
+              </div>
+              <div class="kpi-value" id="kpiDeliveryCost">₹38.5</div>
+              <div class="kpi-meta">
+                <span class="trend-badge down-good">↓ ₹2.8 reduction</span>
+                <span class="meta-sub">via RouteFlow</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Executive Contribution Margin & Breakeven Horizon Banner -->
+          <div class="cmpo-exec-banner" id="cmpoHeroCard">
+            <div class="cmpo-exec-left">
+              <div class="cmpo-exec-pill">
+                <i data-lucide="target" class="lucide-icon sm"></i>
+                <span>PRIMARY NORTH STAR METRIC • 12-MONTH BREAKEVEN HORIZON</span>
+              </div>
+              <div class="cmpo-exec-metrics">
+                <div class="cmpo-metric-item">
+                  <div class="metric-label">Current CMPO (Contribution Margin / Order)</div>
+                  <div class="metric-val-wrap">
+                    <span class="curr-symbol" id="cmpoCurrency">₹</span>
+                    <span class="big-val" id="cmpoHeroValue">41.90</span>
+                    <span class="trend-badge up-good" id="cmpoChangeBadge">
+                      <i data-lucide="trending-up" class="lucide-icon sm" id="cmpoChangeIcon"></i>
+                      <span id="cmpoChangeText">+9.1% MoM</span>
+                    </span>
+                  </div>
+                  <div class="metric-prev" id="cmpoPrevText">vs prev. period: ₹38.40</div>
+                </div>
+                <div class="metric-arrow-sep">→</div>
+                <div class="cmpo-metric-item">
+                  <div class="metric-label">Breakeven Target CMPO</div>
+                  <div class="metric-val-wrap">
+                    <span class="curr-symbol">₹</span>
+                    <span class="big-val text-teal" id="cmpoTargetVal">72.00</span>
+                    <span class="target-badge">16.0% CM Target</span>
+                  </div>
+                  <div class="metric-prev" id="cmpoGapText">Gap to close: +₹30.10 / order</div>
+                </div>
+              </div>
+
+              <div class="cmpo-progress-section">
+                <div class="progress-labels">
+                  <span id="cmpoProgressPctText">Progress towards 12-Month Breakeven: 58.2%</span>
+                  <span id="cmpoDailyCMText">Daily Net CM: +₹8.61 Lakhs/day</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" id="cmpoProgressFill" style="width: 58.2%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cmpo-exec-right">
+              <div class="sparkline-header">
+                <span class="sparkline-title">CMPO Monthly Trajectory</span>
+                <span class="sparkline-badge" id="cmpoChartStatusBadge">Live Trend</span>
+              </div>
+              <div class="sparkline-body" id="cmpoSparklineContainer"></div>
+              <div class="sparkline-footer">
+                <span>6-Mo Actuals → 2-Mo Target</span>
+                <span class="text-emerald" id="cmpoSparklineTargetText">Target: ₹72.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Executive Charts Grid: Trends & Store Comparison -->
+          <div class="grid-2col">
+            <!-- Revenue & Profitability Trends Chart -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <div>
+                  <h3>
+                    <i data-lucide="line-chart" class="lucide-icon"></i>
+                    <span>Revenue & Profitability Trends</span>
+                  </h3>
+                  <p>Historical monthly contribution margin trajectory towards company-wide breakeven</p>
+                </div>
+                <span class="badge badge-navy">Target: 16.0% CM</span>
+              </div>
+              <div class="card-body">
+                <div class="chart-container" id="trendChartContainer"></div>
+              </div>
+            </div>
+
+            <!-- Store Performance Comparison Chart -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <div>
+                  <h3>
+                    <i data-lucide="store" class="lucide-icon"></i>
+                    <span>Store Performance Comparison</span>
+                  </h3>
+                  <p>Contribution margin % across regional dark-store micro-fulfillment pods</p>
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="switchTab('tab-stores')">
+                  <span>View in StoreSense AI</span>
+                  <i data-lucide="arrow-right" class="lucide-icon sm"></i>
+                </button>
+              </div>
+              <div class="card-body">
+                <div class="chart-container" id="storeBarChartContainer"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             PAGE 2: STORESENSE AI – STORE INTELLIGENCE
+             ============================================== -->
+        <section id="tab-stores" class="screen-view">
+          <!-- StoreSense Dedicated KPI Row -->
+          <div class="kpi-grid-4col">
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Active Dark Stores</span>
+                <span class="kpi-icon icon-blue"><i data-lucide="store" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value" id="storesKpiCount">9 Stores</div>
+              <div class="kpi-meta"><span class="meta-sub">Covering 3 Operating Hubs</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Profitable Stores</span>
+                <span class="kpi-icon icon-green"><i data-lucide="check-circle" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value text-success" id="storesKpiProfitable">6 Stores</div>
+              <div class="kpi-meta"><span class="trend-badge up-good">66.7% Network Health</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Loss-Making Stores</span>
+                <span class="kpi-icon icon-red"><i data-lucide="shield-alert" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value text-danger" id="kpiLossStores">3 / 9</div>
+              <div class="kpi-meta"><span class="trend-badge up-bad">Deficit: -₹3.99L/mo</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Avg Store Rent / Mo</span>
+                <span class="kpi-icon icon-amber"><i data-lucide="circle-dollar-sign" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value" id="storesKpiRent">₹2.35L</div>
+              <div class="kpi-meta"><span class="meta-sub">High urban rent drag</span></div>
+            </div>
+          </div>
+
+          <!-- Dark Store Table Card -->
+          <div class="dashboard-card">
+            <div class="card-header">
+              <div>
+                <h3>
+                  <i data-lucide="store" class="lucide-icon"></i>
+                  <span>Dark-Store Level Unit Economics & Audit Table</span>
+                </h3>
+                <p>Granular operating expenses, catchment zones, and contribution margins per pod</p>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <input type="text" id="storeSearchInput" placeholder="Search store or city..." class="select-control"
+                  style="width: 220px;">
+                <select id="storeStatusFilter" class="select-control">
+                  <option value="all">All Stores</option>
+                  <option value="profitable">Profitable Only</option>
+                  <option value="loss">Loss-Making Only (Deficit)</option>
+                </select>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-wrapper">
+                <table class="data-table" id="storesTable">
+                  <thead>
+                    <tr>
+                      <th>Store Name</th>
+                      <th>Location</th>
+                      <th>Rent / Mo</th>
+                      <th>Staffing</th>
+                      <th>Orders/Day</th>
+                      <th>Monthly Revenue</th>
+                      <th>Contrib. Margin</th>
+                      <th>CM %</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="storesTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             PAGE 3: STOCKSMART AI – INVENTORY INTELLIGENCE & PRODUCT SCANNER (MODULE 3)
+             ============================================== -->
+        <section id="tab-inventory" class="screen-view">
+          <!-- StockSmart Dedicated KPI Row -->
+          <div class="kpi-grid-4col">
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Monitored SKUs</span>
+                <span class="kpi-icon icon-blue"><i data-lucide="package" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value" id="invKpiTotalSKUs">48 SKUs</div>
+              <div class="kpi-meta"><span class="meta-sub" id="invKpiTotalValue">Total Stock: ₹18.4 Lakhs</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Inventory Wastage</span>
+                <span class="kpi-icon icon-red"><i data-lucide="alert-triangle" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value text-danger" id="kpiWastage">3.4%</div>
+              <div class="kpi-meta"><span class="trend-badge up-bad">Goal: &lt; 2.0%</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Low / Stockout Risk</span>
+                <span class="kpi-icon icon-amber"><i data-lucide="alert-circle" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value text-warning" id="invKpiLowStockCount">3 SKUs</div>
+              <div class="kpi-meta"><span class="meta-sub">Below Minimum Threshold</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Avg Shelf Turnover</span>
+                <span class="kpi-icon icon-green"><i data-lucide="refresh-cw" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value text-success">4.2 Days</div>
+              <div class="kpi-meta"><span class="trend-badge up-good">Fast Moving</span></div>
+            </div>
+          </div>
+
+          <!-- MODULE 3: Live Barcode Scanner & Inventory Operations Controller -->
+          <div class="dashboard-card">
+            <div class="card-header">
+              <div>
+                <h3>
+                  <i data-lucide="scan-barcode" class="lucide-icon"></i>
+                  <span>Live Product Barcode Scanner & Rapid Stock Control</span>
+                </h3>
+                <p>Scan product barcodes using your device camera or enter SKUs to instantly update inventory & log
+                  transactions</p>
+              </div>
+              <div class="inventory-header-actions">
+                <button class="mongo-status-pill" id="storageStatusBadge" onclick="openMongoDbModal()"
+                  title="View MongoDB Atlas Cluster & Collections">
+                  <span class="mongo-dot-live"></span>
+                  <span id="mongoStatusLabel">MongoDB Atlas: cluster0 (Connected)</span>
+                </button>
+                <button class="btn btn-primary btn-sm" id="btnToggleCameraScanner">
+                  <i data-lucide="camera" class="lucide-icon sm"></i>
+                  <span id="btnToggleCameraText">Start Camera Scanner</span>
+                </button>
+                <button class="btn btn-pine btn-sm" onclick="openAddProductModal()">
+                  <i data-lucide="plus" class="lucide-icon sm"></i>
+                  <span>Add Product</span>
+                </button>
+                <button class="btn btn-outline btn-sm" onclick="openStockHistoryModal()">
+                  <i data-lucide="history" class="lucide-icon sm"></i>
+                  <span>Stock History</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <!-- Camera Scanner Viewport (Collapsible) -->
+              <div class="scanner-viewport-box" id="scannerViewportBox" style="display: none;">
+                <div class="scanner-camera-wrap">
+                  <video id="barcodeScannerVideo" class="scanner-video-feed" playsinline></video>
+                  <div class="scanner-laser-overlay">
+                    <div class="scanner-target-reticle"></div>
+                    <div class="scanner-laser-line"></div>
+                    <div class="scanner-instruction-tag">Point Camera at Product Barcode (EAN-13 / Code-128)</div>
+                  </div>
+                </div>
+                <div class="scanner-camera-controls">
+                  <div style="display: flex; gap: 10px; align-items: center;">
+                    <select id="cameraSourceSelect" class="select-control"
+                      style="font-size: 12px; max-width: 200px;"></select>
+                    <button class="btn btn-outline btn-sm" id="btnStopCamera">
+                      <i data-lucide="video-off" class="lucide-icon sm"></i>
+                      <span>Stop Camera</span>
+                    </button>
+                  </div>
+                  <span style="font-size: 11.5px; color: var(--text-muted);">Camera permission requested automatically
+                    on activation</span>
+                </div>
+              </div>
+
+              <!-- Manual Barcode Search & Quick Test Chips Bar -->
+              <div class="scanner-manual-bar">
+                <div class="manual-input-wrap">
+                  <div class="input-with-icon">
+                    <i data-lucide="barcode" class="lucide-icon sm"></i>
+                    <input type="text" id="manualBarcodeInput"
+                      placeholder="Scan or type barcode (e.g. 8901030383741 or SKU-MLK-01)..." class="form-input">
+                  </div>
+                  <button class="btn btn-primary" id="btnLookupBarcode">
+                    <i data-lucide="search" class="lucide-icon sm"></i>
+                    <span>Scan / Lookup</span>
+                  </button>
+                </div>
+
+                <div class="quick-test-barcodes">
+                  <span class="quick-test-label">Quick Test Chips:</span>
+                  <button class="barcode-test-chip" onclick="simulateBarcodeScan('8901030383741')">Amul Milk
+                    (8901030383741)</button>
+                  <button class="barcode-test-chip" onclick="simulateBarcodeScan('8901262010052')">Blueberries
+                    (8901262010052)</button>
+                  <button class="barcode-test-chip" onclick="simulateBarcodeScan('8901491101824')">Avocados
+                    (8901491101824)</button>
+                  <button class="barcode-test-chip" onclick="simulateBarcodeScan('8901058852335')">Lays Cheese
+                    (8901058852335)</button>
+                  <button class="barcode-test-chip" onclick="simulateBarcodeScan('8909999999999')">Unregistered
+                    Barcode</button>
+                </div>
+              </div>
+
+              <!-- Scanned Product Live Result Panel -->
+              <div id="scannedProductResult" class="scanned-result-panel" style="display: none;">
+                <!-- Populated dynamically upon barcode detection -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Catalog & Inventory SKU Table Card -->
+          <div class="dashboard-card">
+            <div class="card-header">
+              <div>
+                <h3>
+                  <i data-lucide="table" class="lucide-icon"></i>
+                  <span>Master Product Inventory Database</span>
+                </h3>
+                <p>Real-time stock balances, minimum thresholds, turnover velocities, and rapid stock adjustments</p>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <input type="text" id="inventorySearchInput" placeholder="Search by name, SKU or barcode..."
+                  class="select-control" style="width: 240px;">
+                <select id="inventoryCategoryFilter" class="select-control">
+                  <option value="all">All Categories</option>
+                  <option value="Dairy & Milk">Dairy & Milk</option>
+                  <option value="Fresh Produce">Fresh Produce (High Risk)</option>
+                  <option value="Meat & Eggs">Meat & Eggs</option>
+                  <option value="Snacks & Munchies">Snacks & Munchies</option>
+                  <option value="Beverages">Beverages</option>
+                </select>
+                <select id="inventoryStatusFilter" class="select-control">
+                  <option value="all">All Stock Statuses</option>
+                  <option value="low">Low Stock (Threshold Breached)</option>
+                  <option value="healthy">Healthy Stock</option>
+                  <option value="overstock">Overstocked</option>
+                </select>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-wrapper">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Barcode / SKU</th>
+                      <th>Product Name</th>
+                      <th>Category</th>
+                      <th>Available Stock</th>
+                      <th>Min Threshold</th>
+                      <th>Unit Price</th>
+                      <th>Supplier</th>
+                      <th>Last Updated</th>
+                      <th>Stock Health</th>
+                      <th>Adjust Stock</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="inventoryTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             PAGE 4: MARGINMAX AI – CUSTOMER INTELLIGENCE
+             ============================================== -->
+        <section id="tab-customers" class="screen-view">
+          <!-- MarginMax Dedicated KPI Row -->
+          <div class="kpi-grid-4col">
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Active Customers</span>
+                <span class="kpi-icon icon-blue"><i data-lucide="users" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value">48,200</div>
+              <div class="kpi-meta"><span class="meta-sub">Monthly transacting base</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Avg Basket Margin</span>
+                <span class="kpi-icon icon-green"><i data-lucide="trending-up" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value text-success">31.2%</div>
+              <div class="kpi-meta"><span class="trend-badge up-good">Gross product margin</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Coupon Dependency</span>
+                <span class="kpi-icon icon-amber"><i data-lucide="receipt" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value text-warning">22.8%</div>
+              <div class="kpi-meta"><span class="meta-sub">Orders relying on &gt;15% voucher</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Day-30 Retention</span>
+                <span class="kpi-icon icon-indigo"><i data-lucide="award" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value text-success">41.2%</div>
+              <div class="kpi-meta"><span class="trend-badge up-good">+14.6% vs Organic</span></div>
+            </div>
+          </div>
+
+          <!-- Customer Segmentation & Cohort Card -->
+          <div class="dashboard-card">
+            <div class="card-header">
+              <div>
+                <h3>
+                  <i data-lucide="users" class="lucide-icon"></i>
+                  <span>Customer Segmentation & Margin Defense</span>
+                </h3>
+                <p>Shift focus from margin-destroying discounts to high-LTV basket building and retention</p>
+              </div>
+              <button class="btn btn-pine btn-sm" onclick="applyCustomerStrategy()">
+                <i data-lucide="award" class="lucide-icon sm"></i>
+                <span>Launch PulsePass VIP Strategy</span>
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="grid-2col" id="customerSegmentsGrid"></div>
+
+              <!-- Cohort Retention Indicators -->
+              <div
+                style="background: var(--bg-surface-alt); border-radius: var(--radius-md); padding: 18px; margin-top: 16px; border: 1px solid var(--border-color);">
+                <h4
+                  style="font-size: 13.5px; font-weight: 700; color: var(--text-main); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                  <i data-lucide="line-chart" class="lucide-icon sm"></i>
+                  <span>Cohort Economics & Retention Indicators</span>
+                </h4>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; text-align: center;">
+                  <div>
+                    <div
+                      style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">
+                      Day-30 Retention</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--fin-green-dark);">41.2%</div>
+                  </div>
+                  <div>
+                    <div
+                      style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">
+                      Day-90 Retention</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--text-main);">24.8%</div>
+                  </div>
+                  <div>
+                    <div
+                      style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">
+                      Avg Customer Tenure</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--text-main);">8.6 Months</div>
+                  </div>
+                  <div>
+                    <div
+                      style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">
+                      Organic vs Promo Delta</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--fin-green-dark);">+14.6%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             PAGE 5: ROUTEFLOW AI – DELIVERY INTELLIGENCE
+             ============================================== -->
+        <section id="tab-delivery" class="screen-view">
+          <!-- RouteFlow Dedicated KPI Row -->
+          <div class="kpi-grid-4col">
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Active Fleet Riders</span>
+                <span class="kpi-icon icon-blue"><i data-lucide="bike" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value">1,480</div>
+              <div class="kpi-meta"><span class="trend-badge up-good">98.2% Shift Active</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Queue Awaiting Dispatch</span>
+                <span class="kpi-icon icon-amber"><i data-lucide="clock" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value text-warning">342</div>
+              <div class="kpi-meta"><span class="meta-sub">Peak Delivery Window</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Avg Delivery Time</span>
+                <span class="kpi-icon icon-green"><i data-lucide="zap" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value text-success" id="rfDeliveryTime">12.4 min</div>
+              <div class="kpi-meta"><span class="trend-badge up-good">SLA Target &lt; 15 min</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Delivery Cost / Order</span>
+                <span class="kpi-icon icon-teal"><i data-lucide="circle-dollar-sign" class="lucide-icon"></i></span>
+              </div>
+              <div class="kpi-value" id="rfDeliveryCost">₹38.5</div>
+              <div class="kpi-meta"><span id="rfBatchSavings" class="meta-sub">Single drop baseline</span></div>
+            </div>
+          </div>
+
+          <!-- RouteFlow Smart Batching Simulator & Queue Card -->
+          <div class="dashboard-card">
+            <div class="card-header">
+              <div>
+                <h3>
+                  <i data-lucide="bike" class="lucide-icon"></i>
+                  <span>RouteFlow AI: Delivery Efficiency & Smart Batching Simulator</span>
+                </h3>
+                <p>Maximize deliveries per rider without breaching the 15-minute delivery SLA</p>
+              </div>
+              <span class="badge badge-success">
+                <i data-lucide="check-circle" class="lucide-icon sm"></i>
+                <span>On-Time SLA: 97.6%</span>
+              </span>
+            </div>
+            <div class="card-body">
+              <!-- Interactive Proximity Batching Simulator Box -->
+              <div
+                style="background: #F8FAFC; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 22px; margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                  <div>
+                    <h4
+                      style="font-size: 15px; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px;">
+                      <i data-lucide="git-merge" class="lucide-icon"></i>
+                      <span>Proximity Order Batching Controller</span>
+                    </h4>
+                    <p style="font-size: 12.5px; color: var(--text-muted);">Adjust compatible proximity batching ratio
+                      (orders within 1.2 km catchment)</p>
+                  </div>
+                  <div class="badge badge-navy" id="batchRatioDisplay" style="font-size: 12.5px; font-weight: 700;">
+                    Batching: 45% of Orders</div>
+                </div>
+
+                <div style="margin: 16px 0;">
+                  <input type="range" id="batchRatioSlider" min="0" max="80" step="5" value="45" class="sim-slider">
+                  <div
+                    style="display: flex; justify-content: space-between; font-size: 11.5px; color: var(--text-muted); margin-top: 5px; font-weight: 600;">
+                    <span>0% (Solo Drops Only - High Cost)</span>
+                    <span>45% (Balanced Proximity)</span>
+                    <span>80% (Aggressive Batching)</span>
+                  </div>
+                </div>
+
+                <!-- Live Batching Simulation Graphic -->
+                <div class="batching-display">
+                  <div class="batch-box">
+                    <div
+                      style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">
+                      Standard Solo Drop</div>
+                    <div class="stat-val text-danger">₹38.50</div>
+                    <div style="font-size: 11.5px; color: var(--text-muted); font-weight: 500;">1 Rider = 1 Order
+                      (11.5m)</div>
+                  </div>
+
+                  <div class="batch-arrow-anim">
+                    <i data-lucide="zap" class="lucide-icon"
+                      style="color: var(--fin-green-dark); width: 22px; height: 22px;"></i>
+                    <span id="batchingSavingsBadge">Saves ₹6.40 / Order</span>
+                  </div>
+
+                  <div class="batch-box" style="border-color: var(--fin-green); background: #F0FDF4;">
+                    <div
+                      style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">
+                      Smart Batched Drop</div>
+                    <div class="stat-val text-success" id="batchedCostDisplay">₹24.00</div>
+                    <div style="font-size: 11.5px; color: var(--text-muted); font-weight: 500;">1 Rider = 2 Nearby Drops
+                      (13.4m)</div>
+                  </div>
+
+                  <div class="batch-box" style="background: #0B111E; color: #FFFFFF; border-color: #1E293B;">
+                    <div style="font-size: 11px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Monthly
+                      Network Savings</div>
+                    <div class="stat-val text-emerald" id="monthlyBatchSavingsDisplay">+₹3,94,176</div>
+                    <div style="font-size: 11.5px; color: #CBD5E1; font-weight: 500;">Injects directly to CM</div>
+                  </div>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                  <button class="btn btn-primary btn-sm" onclick="applyBatchingToSimulator()">
+                    <span>Apply Delivery Savings into Profitability Simulator</span>
+                    <i data-lucide="arrow-right" class="lucide-icon sm"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Live Queue Table -->
+              <h4 style="font-size: 14px; font-weight: 800; color: var(--text-main); margin-bottom: 10px;">Live
+                Micro-Fulfillment Dispatch Queue</h4>
+              <div class="table-wrapper">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Order ID</th>
+                      <th>Origin Dark Store</th>
+                      <th>Customer Destination</th>
+                      <th>Prep Time</th>
+                      <th>Estimated ETA</th>
+                      <th>Batch Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="deliveryQueueTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             PAGE 6: PROFITABILITY SIMULATOR
+             ============================================== -->
+        <section id="tab-simulator" class="screen-view">
+          <div class="dashboard-card" style="border-color: #38BDF8;">
+            <div class="card-header"
+              style="background: linear-gradient(90deg, #0B111E 0%, #1E293B 100%); color: #FFFFFF;">
+              <div>
+                <h3 style="color: #FFFFFF; display: flex; align-items: center; gap: 8px;">
+                  <i data-lucide="gauge" class="lucide-icon" style="color: #38BDF8;"></i>
+                  <span>Profitability Simulator: 12-Month Breakeven Engine</span>
+                </h3>
+                <p style="color: #CBD5E1;">Adjust unit economic levers in real-time to simulate contribution-margin
+                  breakeven</p>
+              </div>
+              <span class="badge" style="background: var(--color-primary); color: #FFFFFF; font-weight: 700;">Signature
+                Feature</span>
+            </div>
+
+            <div class="card-body">
+              <div class="simulator-layout">
+                <!-- Controls Panel -->
+                <div class="sim-controls-panel">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                    <h4 style="font-size: 14px; font-weight: 800; color: var(--text-main);">Operating Levers</h4>
+                    <span style="font-size: 11.5px; color: var(--text-muted); font-weight: 600;">Reactive Model</span>
+                  </div>
+
+                  <!-- Quick Presets -->
+                  <div class="sim-presets-bar">
+                    <button class="preset-chip active" onclick="loadPreset('baseline')">Baseline (Live)</button>
+                    <button class="preset-chip" onclick="loadPreset('turnaround')">
+                      <i data-lucide="award" class="lucide-icon sm" style="color: #F59E0B;"></i>
+                      <span>12-Mo Breakeven</span>
+                    </button>
+                    <button class="preset-chip" onclick="loadPreset('india')">India Metros</button>
+                    <button class="preset-chip" onclick="loadPreset('sea')">SE Asia</button>
+                    <button class="preset-chip" onclick="loadPreset('eu')">W. Europe</button>
+                  </div>
+
+                  <!-- Slider 1: Average Order Value (AOV) -->
+                  <div class="sim-input-group">
+                    <div class="sim-label-row">
+                      <span>Average Order Value (AOV)</span>
+                      <span class="sim-value-badge" id="lblAOV">₹450</span>
+                    </div>
+                    <input type="range" id="slAOV" min="200" max="1200" step="10" value="450" class="sim-slider">
+                  </div>
+
+                  <!-- Slider 2: Daily Order Volume -->
+                  <div class="sim-input-group">
+                    <div class="sim-label-row">
+                      <span>Daily Order Volume (Network)</span>
+                      <span class="sim-value-badge" id="lblOrders">20,000</span>
+                    </div>
+                    <input type="range" id="slOrders" min="5000" max="80000" step="1000" value="20000"
+                      class="sim-slider">
+                  </div>
+
+                  <!-- Slider 3: Delivery Cost per Order -->
+                  <div class="sim-input-group">
+                    <div class="sim-label-row">
+                      <span>Delivery Cost / Order</span>
+                      <span class="sim-value-badge" id="lblDeliveryCost">₹38</span>
+                    </div>
+                    <input type="range" id="slDeliveryCost" min="15" max="75" step="1" value="38" class="sim-slider">
+                  </div>
+
+                  <!-- Slider 4: Discount per Order -->
+                  <div class="sim-input-group">
+                    <div class="sim-label-row">
+                      <span>Discount & Promo / Order</span>
+                      <span class="sim-value-badge" id="lblDiscount">₹24</span>
+                    </div>
+                    <input type="range" id="slDiscount" min="0" max="80" step="1" value="24" class="sim-slider">
+                  </div>
+
+                  <!-- Slider 5: Packaging Cost -->
+                  <div class="sim-input-group">
+                    <div class="sim-label-row">
+                      <span>Packaging Cost / Order</span>
+                      <span class="sim-value-badge" id="lblPackaging">₹7.5</span>
+                    </div>
+                    <input type="range" id="slPackaging" min="2" max="25" step="0.5" value="7.5" class="sim-slider">
+                  </div>
+
+                  <!-- Slider 6: Product Cost (COGS %) -->
+                  <div class="sim-input-group">
+                    <div class="sim-label-row">
+                      <span>Product Cost (COGS %)</span>
+                      <span class="sim-value-badge" id="lblCOGS">68.5%</span>
+                    </div>
+                    <input type="range" id="slCOGS" min="45" max="85" step="0.5" value="68.5" class="sim-slider">
+                  </div>
+
+                  <!-- Slider 7: Inventory Wastage Allowance % -->
+                  <div class="sim-input-group">
+                    <div class="sim-label-row">
+                      <span>Inventory Spoilage & Wastage %</span>
+                      <span class="sim-value-badge" id="lblWastage">3.2%</span>
+                    </div>
+                    <input type="range" id="slWastage" min="0.5" max="8.0" step="0.1" value="3.2" class="sim-slider">
+                  </div>
+
+                  <button class="btn btn-outline" style="width: 100%; margin-top: 10px;" onclick="resetSimulator()">
+                    <i data-lucide="rotate-ccw" class="lucide-icon sm"></i>
+                    <span>Reset Levers to Current Baseline</span>
+                  </button>
+                </div>
+
+                <!-- Results & Impact Panel -->
+                <div class="sim-results-panel">
+                  <!-- Impact Hero Banner -->
+                  <div class="impact-hero-banner">
+                    <div class="hero-stat">
+                      <div class="label">Simulated CM / Order</div>
+                      <div class="val" id="resCMPerOrder">₹37.6</div>
+                      <div class="sub" id="resCMPct">8.4% of order value</div>
+                    </div>
+                    <div class="hero-stat">
+                      <div class="label">Monthly Net Contribution</div>
+                      <div class="val text-emerald" id="resMonthlyCM">+₹22.5L</div>
+                      <div class="sub" id="resDailyCM">₹75,200 daily run rate</div>
+                    </div>
+                    <div class="hero-stat">
+                      <div class="label">Breakeven Horizon</div>
+                      <div class="val" id="resBreakevenTimeline" style="color: #FCD34D;">7.2 Months</div>
+                      <div class="sub" id="resBreakevenOrders">14,200 orders/day needed</div>
+                    </div>
+                  </div>
+
+                  <!-- Side-by-Side Comparison -->
+                  <div class="comparison-grid">
+                    <!-- Baseline Card -->
+                    <div class="comp-card">
+                      <div class="comp-title">Current Baseline (Live)</div>
+                      <div class="comp-row">
+                        <span>AOV</span>
+                        <strong id="baseAOV">₹435.00</strong>
+                      </div>
+                      <div class="comp-row">
+                        <span>Gross Profit per Order</span>
+                        <span id="baseGrossMargin">₹133.98 (30.8%)</span>
+                      </div>
+                      <div class="comp-row">
+                        <span>Delivery Cost</span>
+                        <span id="baseDelivery">₹38.50</span>
+                      </div>
+                      <div class="comp-row">
+                        <span>Discounts & Vouchers</span>
+                        <span id="baseDiscount">₹25.00</span>
+                      </div>
+                      <div class="comp-row">
+                        <span>Packaging & Wastage</span>
+                        <span id="baseWastage">₹22.29</span>
+                      </div>
+                      <div class="comp-row highlight-row">
+                        <span>Baseline CM per Order</span>
+                        <strong style="color: var(--text-main);">₹38.70 (8.9%)</strong>
+                      </div>
+                    </div>
+
+                    <!-- Simulated Card -->
+                    <div class="comp-card simulated-card">
+                      <div class="comp-title" style="color: var(--color-primary-dark);">
+                        Simulated Economics (Your Model)
+                      </div>
+                      <div class="comp-row">
+                        <span>Simulated AOV</span>
+                        <strong id="simAOV">₹450.00</strong>
+                      </div>
+                      <div class="comp-row">
+                        <span>Gross Profit per Order</span>
+                        <span id="simGrossMargin">₹141.75 (31.5%)</span>
+                      </div>
+                      <div class="comp-row">
+                        <span>Delivery Cost</span>
+                        <span id="simDelivery">₹38.00</span>
+                      </div>
+                      <div class="comp-row">
+                        <span>Discounts & Vouchers</span>
+                        <span id="simDiscount">₹24.00</span>
+                      </div>
+                      <div class="comp-row">
+                        <span>Packaging & Wastage</span>
+                        <span id="simWastage">₹21.90</span>
+                      </div>
+                      <div class="comp-row highlight-row">
+                        <span>Simulated CM per Order</span>
+                        <strong id="simCMPerOrder" style="color: var(--color-primary-dark);">₹37.60 (8.4%)</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Financial Improvement Projection -->
+                  <div
+                    style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 18px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <div>
+                        <h4
+                          style="font-size: 14px; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+                          <i data-lucide="trending-up" class="lucide-icon sm" style="color: var(--fin-green);"></i>
+                          <span>Simulated Financial Impact</span>
+                        </h4>
+                        <p style="font-size: 12.5px; color: var(--text-muted); font-weight: 500;"
+                          id="simDeltaExplanation">
+                          Projected impact on bottom-line contribution over current operations
+                        </p>
+                      </div>
+                      <div style="text-align: right;">
+                        <div style="font-size: 22px; font-weight: 800; color: var(--fin-green-dark);"
+                          id="simImprovementAnnual">
+                          +₹1.48 Cr / year
+                        </div>
+                        <div style="font-size: 12px; color: var(--text-muted); font-weight: 600;"
+                          id="simImprovementMonthly">
+                          +₹12.3 Lakhs / month
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             PAGE 7: SETTINGS – REGIONAL ASSUMPTIONS
+             ============================================== -->
+        <section id="tab-settings" class="screen-view">
+          <div class="dashboard-card">
+            <div class="card-header">
+              <div>
+                <h3>
+                  <i data-lucide="sliders" class="lucide-icon"></i>
+                  <span>Regional Operating Assumptions & Benchmarks</span>
+                </h3>
+                <p>Comparative operational models across India, Southeast Asia, and Western Europe</p>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-wrapper">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Region Market</th>
+                      <th>Currency</th>
+                      <th>Typical AOV</th>
+                      <th>Delivery Cost / Order</th>
+                      <th>Discount Dependency</th>
+                      <th>Labor / Rider Hourly Rate</th>
+                      <th>Breakeven Horizon</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>India Metros (Bengaluru, NCR, Mumbai)</strong></td>
+                      <td>INR (₹)</td>
+                      <td>₹435 - ₹480</td>
+                      <td>₹36 - ₹42</td>
+                      <td>16% - 24%</td>
+                      <td>₹115 - ₹135 / hr</td>
+                      <td><span class="badge badge-success">8 - 11 Months</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Southeast Asia (Jakarta, Bangkok)</strong></td>
+                      <td>USD ($)</td>
+                      <td>$7.50 - $9.00</td>
+                      <td>$1.40 - $1.80</td>
+                      <td>18% - 28%</td>
+                      <td>$2.50 - $3.20 / hr</td>
+                      <td><span class="badge badge-success">9 - 12 Months</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Western Europe (London, Berlin)</strong></td>
+                      <td>EUR (€)</td>
+                      <td>€24.00 - €32.00</td>
+                      <td>€4.80 - €6.20</td>
+                      <td>8% - 14%</td>
+                      <td>€14.00 - €18.00 / hr</td>
+                      <td><span class="badge badge-warning">14 - 18 Months (Labor heavy)</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             PAGE 8: NORTH STAR MATRIX
+             ============================================== -->
+        <section id="tab-northstar" class="screen-view">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div>
+              <span class="badge badge-success" style="font-size: 12px; padding: 4px 12px;">
+                <i data-lucide="sparkles" class="lucide-icon sm"></i>
+                <span>Quick-Commerce Profitability Compass</span>
+              </span>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button class="btn btn-outline btn-sm" onclick="switchTab('tab-dashboard')">
+                <i data-lucide="layout-dashboard" class="lucide-icon sm"></i>
+                <span>Back to Dashboard</span>
+              </button>
+              <button class="btn btn-primary btn-sm" onclick="switchTab('tab-simulator')">
+                <i data-lucide="gauge" class="lucide-icon sm"></i>
+                <span>Test in Profitability Simulator →</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Hero Card -->
+          <div class="dashboard-card"
+            style="background: linear-gradient(135deg, #0B111E 0%, #111827 60%, #1E293B 100%); color: #FFFFFF; border-color: #1E293B;">
+            <div class="card-body">
+              <div
+                style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: var(--radius-full); background: rgba(14, 165, 233, 0.2); color: #7DD3FC; font-size: 11px; font-weight: 700; margin-bottom: 16px;">
+                <i data-lucide="target" class="lucide-icon sm"></i>
+                <span>Formula: CMPO = Total Contribution Margin / Total Completed Orders</span>
+              </div>
+              <h2 style="font-size: 24px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">
+                North Star Metric: Contribution Margin per Order (CMPO)
+              </h2>
+              <p style="font-size: 13.5px; color: #CBD5E1; max-width: 800px; line-height: 1.5; margin-bottom: 24px;">
+                In quick-commerce, scaling order volume with negative CMPO accelerates capital depletion.
+                Maximizing CMPO guarantees that every dark-store delivery generates surplus capital towards fixed rent,
+                staffing, and 12-month company-wide breakeven.
+              </p>
+
+              <div style="display: flex; align-items: center; gap: 32px; margin-bottom: 24px;">
+                <div>
+                  <div style="font-size: 11px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Current
+                    CMPO (Live)</div>
+                  <div style="font-size: 34px; font-weight: 800; color: #FFFFFF;" id="nsCurrentCMPO">₹41.90</div>
+                  <div style="font-size: 12px; color: #A7F3D0; font-weight: 600;">+9.2% of Average Order Value</div>
+                </div>
+                <div style="font-size: 26px; color: #475569;">→</div>
+                <div>
+                  <div style="font-size: 11px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Target
+                    Breakeven CMPO</div>
+                  <div style="font-size: 34px; font-weight: 800; color: #38BDF8;">₹72.00</div>
+                  <div style="font-size: 12px; color: #CBD5E1; font-weight: 600;">+16.0% target for full breakeven</div>
+                </div>
+              </div>
+
+              <div class="progress-track" style="margin-bottom: 8px;">
+                <div class="progress-fill" id="nsCMPOProgressFill" style="width: 58.2%;"></div>
+              </div>
+              <div
+                style="display: flex; justify-content: space-between; font-size: 11.5px; color: #94A3B8; font-weight: 600;">
+                <span>Current Progress: 58.2% of target</span>
+                <span>Gap to Close: +₹30.10 / order</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================
+             PAGE 9: DYNAMIC BUSINESS DATA INPUT (MODULE 1)
+             ============================================== -->
+        <section id="tab-data-mgmt" class="screen-view">
+          <!-- Hero Header Card -->
+          <div class="data-mgmt-hero">
+            <div>
+              <div class="data-mgmt-status-badge" id="dataHeroStatusBadge">
+                <i data-lucide="check-circle" class="lucide-icon sm"></i>
+                <span id="dataActiveSourceText">Active Dataset: Default Reference Benchmark (9 Stores)</span>
+              </div>
+              <h2 style="font-size: 24px; font-weight: 800; color: #FFFFFF; margin-top: 10px;">
+                Dynamic Business Data Input & Ingestion Engine
+              </h2>
+              <p style="font-size: 13px; color: #CBD5E1; margin-top: 4px; max-width: 650px;">
+                Directly enter company operating figures, generate realistic demo data, or upload spreadsheets
+                (CSV/Excel).
+                All platform KPIs, contribution margins, and profitability forecasts recalculate automatically in
+                real-time.
+              </p>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="btn btn-primary" id="btnHeroGenerateDemo" onclick="generateDemoBusinessData()">
+                <i data-lucide="sparkles" class="lucide-icon sm"></i>
+                <span>Generate Realistic Demo Data</span>
+              </button>
+              <a href="/api/dataset/template" class="btn btn-outline" download="ProfitPulse_Company_Data_Template.csv">
+                <i data-lucide="download" class="lucide-icon sm"></i>
+                <span>Download CSV Template</span>
+              </a>
+              <a href="/api/dataset/template-xlsx" class="btn btn-outline"
+                download="ProfitPulse_Company_Data_Template.xlsx">
+                <i data-lucide="download" class="lucide-icon sm"></i>
+                <span>Download Excel (.xlsx)</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Demo Data Active Notification Banner -->
+          <div class="demo-data-banner" id="demoDataStatusBanner" style="display: none;">
+            <div class="demo-banner-content">
+              <span class="badge badge-warning" style="font-size: 12px; padding: 4px 10px;">
+                <i data-lucide="info" class="lucide-icon sm"></i>
+                <span>DEMO DATA ACTIVE</span>
+              </span>
+              <span style="font-size: 13px; font-weight: 600; color: #92400E;">
+                Platform is currently calculating using generated realistic enterprise quick-commerce demo figures.
+              </span>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="resetBusinessDataToDefault()">
+              <i data-lucide="rotate-ccw" class="lucide-icon sm"></i>
+              <span>Restore Baseline Data</span>
+            </button>
+          </div>
+
+          <!-- MODULE 1: Direct Operational Business Data Input Form Card -->
+          <div class="dashboard-card">
+            <div class="card-header">
+              <div>
+                <h3>
+                  <i data-lucide="edit-3" class="lucide-icon"></i>
+                  <span>Direct Company Operational Data Input Form</span>
+                </h3>
+                <p>Modify high-level operational figures to immediately test bottom-line profit and unit economics</p>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button type="button" class="btn btn-outline btn-sm" onclick="generateDemoBusinessData()">
+                  <i data-lucide="sparkles" class="lucide-icon sm"></i>
+                  <span>Generate Demo Data</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <form id="businessDataInputForm" onsubmit="handleBusinessDataSubmit(event)">
+                <div class="biz-input-grid">
+                  <!-- 1. Revenue -->
+                  <div class="form-group">
+                    <label for="bizInputRevenue">Monthly Revenue (₹) *</label>
+                    <input type="number" id="bizInputRevenue" class="form-input" placeholder="e.g. 30200000" min="0"
+                      step="1000" required>
+                    <span class="field-hint">Gross monthly merchandise sales</span>
+                  </div>
+
+                  <!-- 2. Total Orders -->
+                  <div class="form-group">
+                    <label for="bizInputOrders">Total Completed Orders *</label>
+                    <input type="number" id="bizInputOrders" class="form-input" placeholder="e.g. 615900" min="1"
+                      step="10" required>
+                    <span class="field-hint">Monthly fulfilled customer deliveries</span>
+                  </div>
+
+                  <!-- 3. Delivery Costs -->
+                  <div class="form-group">
+                    <label for="bizInputDeliveryCost">Total Delivery Costs (₹) *</label>
+                    <input type="number" id="bizInputDeliveryCost" class="form-input" placeholder="e.g. 23712150"
+                      min="0" step="1000" required>
+                    <span class="field-hint">Rider payouts and fleet fuel subsidies</span>
+                  </div>
+
+                  <!-- 4. Dark-Store Rent -->
+                  <div class="form-group">
+                    <label for="bizInputRent">Dark-Store Rent (₹) *</label>
+                    <input type="number" id="bizInputRent" class="form-input" placeholder="e.g. 2115000" min="0"
+                      step="1000" required>
+                    <span class="field-hint">Aggregated lease costs for all pods</span>
+                  </div>
+
+                  <!-- 5. Staffing Expenses -->
+                  <div class="form-group">
+                    <label for="bizInputStaffing">Staffing Expenses (₹) *</label>
+                    <input type="number" id="bizInputStaffing" class="form-input" placeholder="e.g. 1755000" min="0"
+                      step="1000" required>
+                    <span class="field-hint">Picker, packer, and hub lead payroll</span>
+                  </div>
+
+                  <!-- 6. Inventory Wastage -->
+                  <div class="form-group">
+                    <label for="bizInputWastage">Inventory Wastage (₹) *</label>
+                    <input type="number" id="bizInputWastage" class="form-input" placeholder="e.g. 1026800" min="0"
+                      step="1000" required>
+                    <span class="field-hint">Perishable spoilage, damage, and shrinkage</span>
+                  </div>
+
+                  <!-- 7. Private Label Sales -->
+                  <div class="form-group">
+                    <label for="bizInputPrivateLabel">Private Label Sales (₹) *</label>
+                    <input type="number" id="bizInputPrivateLabel" class="form-input" placeholder="e.g. 4280000" min="0"
+                      step="1000" required>
+                    <span class="field-hint">High-margin in-house branded products</span>
+                  </div>
+                </div>
+
+                <div class="biz-form-actions" style="margin-top: 16px;">
+                  <button type="button" class="btn btn-outline" onclick="generateDemoBusinessData()">
+                    <i data-lucide="sparkles" class="lucide-icon sm"></i>
+                    <span>Generate Demo Data</span>
+                  </button>
+                  <button type="button" class="btn btn-outline" onclick="resetBusinessDataToDefault()">
+                    <i data-lucide="rotate-ccw" class="lucide-icon sm"></i>
+                    <span>Reset</span>
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    <i data-lucide="check" class="lucide-icon sm"></i>
+                    <span>Apply & Recalculate Platform</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- File Upload Drop Zone & Active Dataset Preview -->
+          <div id="dataUploadAlert" class="data-upload-alert" style="display: none; margin-bottom: 20px;"></div>
+
+          <div class="drop-zone-container">
+            <div class="drop-zone" id="fileDropZone">
+              <input type="file" id="companyFileInput" class="file-input-hidden" accept=".xlsx, .xls, .csv">
+              <div class="drop-zone-icon">
+                <i data-lucide="upload" class="lucide-icon lg"></i>
+              </div>
+              <h4 style="font-size: 15px; font-weight: 700;">Upload Spreadsheet Dataset (.xlsx, .xls, .csv)</h4>
+              <p style="font-size: 12.5px; color: var(--text-muted); max-width: 380px;">Drag and drop your company
+                operational spreadsheet here, or click to browse files from your computer.</p>
+              <div style="display: inline-flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
+                <span class="badge badge-navy">.XLSX Excel Engine</span>
+                <span class="badge badge-navy">.CSV Delimited</span>
+                <span class="badge badge-success">11 Required Columns</span>
+              </div>
+            </div>
+
+            <div class="manual-entry-card">
+              <div>
+                <h4 style="font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 6px;">
+                  Manual Dark-Store Record Entry
+                </h4>
+                <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px;">
+                  Directly input or adjust operating figures for a specific dark-store location without preparing a full
+                  spreadsheet.
+                </p>
+                <div style="font-size: 11.5px; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">
+                  Coverage (11 Fields):
+                </div>
+                <div class="field-tag-grid" id="fieldTagGrid">
+                  <span class="field-tag mapped"><i data-lucide="check" class="lucide-icon sm"></i> Revenue &
+                    Orders</span>
+                  <span class="field-tag mapped"><i data-lucide="check" class="lucide-icon sm"></i> Delivery
+                    Costs</span>
+                  <span class="field-tag mapped"><i data-lucide="check" class="lucide-icon sm"></i> Dark-Store
+                    Rent</span>
+                  <span class="field-tag mapped"><i data-lucide="check" class="lucide-icon sm"></i> Staffing
+                    Overhead</span>
+                  <span class="field-tag mapped"><i data-lucide="check" class="lucide-icon sm"></i> Spoilage
+                    Wastage</span>
+                  <span class="field-tag mapped"><i data-lucide="check" class="lucide-icon sm"></i> Private Label</span>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 10px; margin-top: 16px;">
+                <button class="btn btn-primary" style="flex-grow: 1;" onclick="openManualEntryModal()">
+                  <i data-lucide="edit-3" class="lucide-icon sm"></i>
+                  <span>Add / Edit Store Record</span>
+                </button>
+                <button class="btn btn-outline" onclick="resetToBenchmarkData()">
+                  <i data-lucide="rotate-ccw" class="lucide-icon sm"></i>
+                  <span>Reset All</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dataset Staging & Preview Card (Immediately displayed upon selecting .xlsx/.xls/.csv) -->
+          <div id="datasetStagingCard" class="dashboard-card"
+            style="display: none; margin-bottom: 24px; border: 2px solid var(--pantone-pine-grove-accent); box-shadow: var(--shadow-md);">
+            <div class="card-header" style="background: #F0FDF4; border-bottom: 1px solid #BBF7D0;">
+              <div>
+                <h3 style="display: flex; align-items: center; gap: 8px; color: #166534;">
+                  <i data-lucide="file-text" class="lucide-icon"></i>
+                  <span>Spreadsheet Detected: <strong id="stagingFileName">-</strong></span>
+                </h3>
+                <p id="stagingMetaSub" style="color: #15803D; font-weight: 500;">
+                  File size: <strong id="stagingFileSize">-</strong> | Detected: <strong id="stagingRowCount">-</strong>
+                  records across <strong id="stagingColCount">-</strong> columns
+                </p>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <button type="button" class="btn btn-outline btn-sm" id="btnCancelStaging"
+                  onclick="cancelStagedUpload()">
+                  <span>Cancel</span>
+                </button>
+                <button type="button" class="btn btn-primary" id="btnImportStagedDataset"
+                  onclick="executeDatasetImport()" style="background: #166534; border-color: #166534;">
+                  <i data-lucide="check" class="lucide-icon sm"></i>
+                  <span>Import Dataset</span>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="stagingValidationStatus" style="margin-bottom: 16px;"></div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span
+                  style="font-size: 12.5px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em;">
+                  Preview of First 5 Records
+                </span>
+                <span class="badge badge-navy" id="stagingRowCountBadge">First 5 Rows Shown</span>
+              </div>
+
+              <div class="table-wrapper">
+                <table class="data-table">
+                  <thead id="stagingTableHead">
+                    <tr>
+                      <th>Store ID</th>
+                      <th>Dark Store Name</th>
+                      <th>Region</th>
+                      <th>Period</th>
+                      <th>Monthly Revenue</th>
+                      <th>Orders/Day</th>
+                      <th>Delivery Cost</th>
+                      <th>Rent</th>
+                      <th>Staffing</th>
+                      <th>Wastage</th>
+                      <th>Private Label</th>
+                    </tr>
+                  </thead>
+                  <tbody id="stagingTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Dataset Preview Table -->
+          <div class="dashboard-card">
+            <div class="card-header">
+              <div>
+                <h3>
+                  <i data-lucide="table" class="lucide-icon"></i>
+                  <span>Active Company Dataset Preview (<span id="dataRowCount">9</span> Dark Stores Loaded)</span>
+                </h3>
+                <p id="dataPreviewSubtitle">Showing currently active company metrics dynamically mapped to the financial
+                  calculation engine</p>
+              </div>
+              <button class="btn btn-outline btn-sm" onclick="switchTab('tab-dashboard')">
+                <span>View in Dashboard →</span>
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="table-wrapper">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Store ID</th>
+                      <th>Dark Store Name</th>
+                      <th>Region</th>
+                      <th>Period</th>
+                      <th>Monthly Revenue</th>
+                      <th>Orders / Day</th>
+                      <th>Delivery / Order</th>
+                      <th>Store Rent</th>
+                      <th>Staffing</th>
+                      <th>Wastage</th>
+                      <th>Private Label</th>
+                      <th>Calculated CM</th>
+                      <th>CM %</th>
+                      <th>Store Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="companyDataPreviewBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MODALS
+       ============================================== -->
+  <!-- 1. Add / Edit Product Modal (MODULE 3) -->
+  <div class="modal-overlay" id="productModal">
+    <div class="modal-container" style="max-width: 640px;">
+      <div class="modal-header">
+        <h3 id="productModalTitle">Add New Inventory Product</h3>
+        <button class="modal-close-btn" onclick="closeProductModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <form id="productForm" onsubmit="handleProductFormSubmit(event)">
+          <input type="hidden" id="prodEditId" value="">
+          <div class="form-grid-2col">
+            <div class="form-group">
+              <label>Barcode / SKU Code *</label>
+              <input type="text" id="prodBarcode" class="form-input" placeholder="e.g. 8901030383741 or SKU-MLK-01"
+                required>
+              <span class="field-hint">Must be unique across product catalog</span>
+            </div>
+            <div class="form-group">
+              <label>Category *</label>
+              <select id="prodCategory" class="select-control" required>
+                <option value="Dairy & Milk">Dairy & Milk</option>
+                <option value="Fresh Produce">Fresh Produce</option>
+                <option value="Meat & Eggs">Meat & Eggs</option>
+                <option value="Snacks & Munchies">Snacks & Munchies</option>
+                <option value="Beverages">Beverages</option>
+                <option value="Pantry Essentials">Pantry Essentials</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label>Product Name *</label>
+            <input type="text" id="prodName" class="form-input" placeholder="e.g. Amul Taaza Homogenised Toned Milk 1L"
+              required>
+          </div>
+
+          <div class="form-grid-2col">
+            <div class="form-group">
+              <label>Unit Selling Price (₹) *</label>
+              <input type="number" id="prodPrice" class="form-input" placeholder="e.g. 72" min="1" step="0.5" required>
+            </div>
+            <div class="form-group">
+              <label>Purchase Cost (₹) *</label>
+              <input type="number" id="prodCost" class="form-input" placeholder="e.g. 61.2" min="0" step="0.5" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2col">
+            <div class="form-group">
+              <label>Available Stock Quantity *</label>
+              <input type="number" id="prodQuantity" class="form-input" placeholder="e.g. 420" min="0" step="1"
+                required>
+            </div>
+            <div class="form-group">
+              <label>Minimum Stock Threshold *</label>
+              <input type="number" id="prodThreshold" class="form-input" placeholder="e.g. 150" min="1" step="1"
+                required>
+              <span class="field-hint">Triggers Low Stock Alert when breached</span>
+            </div>
+          </div>
+
+          <div class="form-grid-2col">
+            <div class="form-group">
+              <label>Supplier / Vendor Name *</label>
+              <input type="text" id="prodSupplier" class="form-input" placeholder="e.g. Amul Cooperative Direct"
+                required>
+            </div>
+            <div class="form-group">
+              <label>Shelf Life Expiry (Days)</label>
+              <input type="number" id="prodExpiry" class="form-input" placeholder="e.g. 3" min="1" step="1">
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+            <button type="button" class="btn btn-outline" onclick="closeProductModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">
+              <i data-lucide="check" class="lucide-icon sm"></i>
+              <span id="btnSaveProductText">Save Product to Inventory</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Stock Transaction History Modal (MODULE 3) -->
+  <div class="modal-overlay" id="stockHistoryModal">
+    <div class="modal-container" style="max-width: 780px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <i data-lucide="history" class="lucide-icon"></i>
+          <h3>Stock Movement & Audit Transaction History</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeStockHistoryModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 14px;">
+          Chronological audit trail of all barcode scanning operations, manual stock increments/decrements, and inbound
+          receipts.
+        </p>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Product SKU</th>
+                <th>Product Name</th>
+                <th>Change</th>
+                <th>Resulting Stock</th>
+                <th>Operation Type</th>
+                <th>Reason</th>
+              </tr>
+            </thead>
+            <tbody id="stockHistoryTableBody">
+              <!-- Populated dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeStockHistoryModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Store Details Inspection Modal -->
+  <div class="modal-overlay" id="storeModal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="modalStoreTitle">Store Analysis</h3>
+        <button class="modal-close-btn" onclick="closeStoreModal()">×</button>
+      </div>
+      <div class="modal-body" id="modalStoreBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeStoreModal()">Close</button>
+        <button class="btn btn-primary" id="modalSimulateBtn">
+          <span>Test Recommendations in Simulator</span>
+          <i data-lucide="arrow-right" class="lucide-icon sm"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Manual Store Data Entry Modal -->
+  <div class="modal-overlay" id="manualEntryModal">
+    <div class="modal-container" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3>
+          <i data-lucide="edit-3" class="lucide-icon sm"></i>
+          <span>Add / Update Dark Store Financial Record</span>
+        </h3>
+        <button class="modal-close-btn" onclick="closeManualEntryModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <form id="manualEntryForm" onsubmit="handleManualStoreSubmit(event)">
+          <div class="form-grid-2col">
+            <div class="form-group">
+              <label>Dark Store ID *</label>
+              <input type="text" id="manualStoreId" class="form-input" placeholder="e.g. DS-DEL-04" required>
+            </div>
+            <div class="form-group">
+              <label>Store Name *</label>
+              <input type="text" id="manualStoreName" class="form-input" placeholder="e.g. South Delhi Hauz Khas"
+                required>
+            </div>
+          </div>
+
+          <div class="form-grid-2col">
+            <div class="form-group">
+              <label>Operating Region *</label>
+              <input type="text" id="manualStoreRegion" class="form-input" placeholder="e.g. North India - NCR"
+                required>
+            </div>
+            <div class="form-group">
+              <label>Store Location / Area</label>
+              <input type="text" id="manualStoreLocation" class="form-input"
+                placeholder="e.g. Hauz Khas Market, New Delhi">
+            </div>
+          </div>
+
+          <div class="form-grid-2col">
+            <div class="form-group">
+              <label>Monthly Revenue (₹) *</label>
+              <input type="number" id="manualRevenue" class="form-input" placeholder="e.g. 4200000" required>
+            </div>
+            <div class="form-group">
+              <label>Completed Orders / Month *</label>
+              <input type="number" id="manualOrders" class="form-input" placeholder="e.g. 85000" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2col">
+            <div class="form-group">
+              <label>Total Delivery Cost (₹) *</label>
+              <input type="number" id="manualDeliveryCost" class="form-input" placeholder="e.g. 2975000" required>
+            </div>
+            <div class="form-group">
+              <label>Total Discounts Given (₹)</label>
+              <input type="number" id="manualDiscount" class="form-input" placeholder="e.g. 180000">
+            </div>
+          </div>
+
+          <div class="form-grid-2col">
+            <div class="form-group">
+              <label>Store Monthly Rent (₹) *</label>
+              <input type="number" id="manualRent" class="form-input" placeholder="e.g. 240000" required>
+            </div>
+            <div class="form-group">
+              <label>Picker Staffing Expenses (₹) *</label>
+              <input type="number" id="manualStaffing" class="form-input" placeholder="e.g. 190000" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2col">
+            <div class="form-group">
+              <label>Inventory Wastage Value (₹)</label>
+              <input type="number" id="manualWastage" class="form-input" placeholder="e.g. 85000">
+            </div>
+            <div class="form-group">
+              <label>Private Label Sales (₹)</label>
+              <input type="number" id="manualPrivateLabel" class="form-input" placeholder="e.g. 620000">
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px;">
+            <button type="button" class="btn btn-outline" onclick="closeManualEntryModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">
+              <i data-lucide="check" class="lucide-icon sm"></i>
+              <span>Save & Compute Store Economics</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. MongoDB Atlas Connection & Cloud Sync Modal -->
+  <div class="modal-overlay" id="mongoDbModal">
+    <div class="modal-container" style="max-width: 680px;">
+      <div class="mongo-card-header">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div
+              style="width: 32px; height: 32px; border-radius: 8px; background: #00ED64; display: flex; align-items: center; justify-content: center; color: #001E2B; font-weight: 900; font-size: 16px;">
+              M</div>
+            <div>
+              <h3 style="color: #FFFFFF; font-size: 16px; margin: 0;">MongoDB Atlas Cloud Database</h3>
+              <p style="color: #94A3B8; font-size: 12px; margin: 2px 0 0 0;">Direct cluster connection & pseudo-data
+                synchronization</p>
+            </div>
+          </div>
+          <button class="modal-close-btn" style="color: #94A3B8;" onclick="closeMongoDbModal()">×</button>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 20px 24px;">
+        <div
+          style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #ECFDF5; border: 1px solid #A7F3D0; border-radius: 8px; margin-bottom: 16px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="mongo-dot-live"></span>
+            <span style="font-size: 13px; font-weight: 700; color: #065F46;">Cluster Connection: Active (Live REST
+              Synced)</span>
+          </div>
+          <span class="badge badge-success" id="mongoModalPing">Latency: 12ms</span>
+        </div>
+
+        <div class="form-group">
+          <label style="font-size: 12px; font-weight: 700; color: var(--text-main);">MongoDB Connection String
+            (URI)</label>
+          <div class="mongo-uri-box">
+            <span id="mongoUriDisplay">mongodb+srv://Admin1:••••••••@cluster0.tzti0i8.mongodb.net/profitpulse</span>
+            <button type="button" class="btn btn-outline btn-sm"
+              style="font-size: 11px; padding: 3px 8px; background: #1E293B; color: #E2E8F0; border-color: #334155;"
+              onclick="toggleMongoUriReveal()">Show/Hide</button>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;">
+          <div
+            style="background: var(--bg-surface-alt); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color);">
+            <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">Target Database</span>
+            <div style="font-size: 14px; font-weight: 800; color: var(--text-main); font-family: monospace;"
+              id="mongoDbName">profitpulse</div>
+          </div>
+          <div
+            style="background: var(--bg-surface-alt); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color);">
+            <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">Host Cluster</span>
+            <div style="font-size: 14px; font-weight: 800; color: var(--text-main); font-family: monospace;"
+              id="mongoClusterName">cluster0.tzti0i8.mongodb.net</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 18px;">
+          <h4 style="font-size: 13px; font-weight: 800; margin-bottom: 8px; color: var(--text-main);">MongoDB
+            Collections & Document Counts</h4>
+          <div class="mongo-stats-grid">
+            <div class="mongo-stat-card">
+              <span class="m-lbl">products</span>
+              <strong class="m-val" id="mongoDocProducts">8</strong>
+            </div>
+            <div class="mongo-stat-card">
+              <span class="m-lbl">transactions</span>
+              <strong class="m-val" id="mongoDocTx">3</strong>
+            </div>
+            <div class="mongo-stat-card">
+              <span class="m-lbl">notifications</span>
+              <strong class="m-val" id="mongoDocNotifs">4</strong>
+            </div>
+            <div class="mongo-stat-card">
+              <span class="m-lbl">business_data</span>
+              <strong class="m-val" id="mongoDocBiz">1</strong>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
+          <button class="btn btn-outline btn-sm" onclick="pingMongoDb()">
+            <i data-lucide="refresh-cw" class="lucide-icon sm"></i>
+            <span>Test Connection Ping</span>
+          </button>
+          <button class="btn btn-primary btn-sm" onclick="reseedMongoDb()">
+            <i data-lucide="sparkles" class="lucide-icon sm"></i>
+            <span>Re-Seed Pseudo Data</span>
+          </button>
+          <button class="btn btn-outline btn-sm" onclick="exportMongoBackup()">
+            <i data-lucide="download" class="lucide-icon sm"></i>
+            <span>Download Collections JSON</span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeMongoDbModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
