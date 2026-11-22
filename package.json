@@ -2,8 +2,13 @@
   "name": "profitpulse-ai",
   "version": "1.0.0",
   "description": "ProfitPulse AI – Quick-Commerce Profitability Intelligence Platform",
-  "main": "server.js",
+  "main": "api/index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'Static assets ready in public/'"
+  },
+  "engines": {
+    "node": ">=18.x"
   }
 }
